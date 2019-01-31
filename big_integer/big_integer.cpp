@@ -2,8 +2,8 @@
  *mathematical functions including addition,subtraction, multiplication, division and modulo. The mathematical functions
  *implement the standard grade school algorithms for long addition, long subtraction, long multiplication, and long division.
  *SOME THINGS TO NOTE:
- * For the subtraction function, if the difference between two big integers the result will be zero 
- * For the the division function, if the divisor is greater than the dividend the result will zero.
+ * For the subtraction function, if the difference between two big integers is less than zero the result will be zero 
+ * For the the division function, if the divisor is greater than the dividend the result will be zero.
  * To compile: g++ big_integer.cpp tester.cpp
  * To run: ./a.out
  *Version 1.0
@@ -179,7 +179,6 @@ std::string big_integer::add_two_strings (std::string left, std::string right)
  */
 const big_integer big_integer::operator+ (const big_integer & bigInt2) const
 {
-  //std::cout << "big integer addition operator called " << std::endl;
   big_integer sum = add_two_strings(s, bigInt2.s);
 
   return sum;
