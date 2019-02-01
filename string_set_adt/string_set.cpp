@@ -199,9 +199,13 @@ namespace cs3505
 	else
 	{
 	  previous->next = current->next;
+
 	  //Remove the current
 	  delete current;
 	}
+	
+	size--;
+	return;
       }
       previous = current;
       current = current->next;
@@ -278,6 +282,29 @@ namespace cs3505
 
     // Done with assignment operator.
 
+     // Set up a hashtable of the specified capacity.
+
+    this->table = new node*[rhs.capacity];
+    this->capacity = rhs.capacity;
+    this->size = 0;
+
+    // The array must be cleared -- it will have bogus values in it.
+    //   (NULL means 'no linked list chain in this entry')
+
+    for (int i = 0; i < capacity; i++)
+      table[i] = NULL;
+
+    //populate the new table
+    for (int i = 0; i < capacity; i++)
+    {
+      node *current = rhs.table[i];
+      while (current != NULL)
+      {
+	add(current->data);
+	current = current->next;
+      }
+    }
+    
     return *this;
   }
 }
