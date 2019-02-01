@@ -164,6 +164,48 @@ namespace cs3505
     //   table must be appropriately updated.
 
     // To be completed as part of the assignment.
+     
+
+    // Determine which table entry chain might contain this string.
+
+    int index = hash(target);
+
+    // Walk the chain (the linked list).  Check each entry for the
+    //   string.  If we find it, just bail out.  (No duplicates allowed.)
+
+    node *current = table[index];
+    node *previous = NULL;
+    while (current != NULL)
+    {
+      if (current->data == target)
+      {
+	//CASE 1: Remove the first node from the linked list
+	if (previous == NULL)
+	{
+	  previous->next = current->next;
+	  
+	  //call delete on current to remove memory
+	  delete current;
+	}
+	//CASE 2: Remove the last node from the linked list
+	else if (current->next == NULL)
+	{
+	  previous->next = current->next;
+	  
+	  //call delete on current to remove it
+	  delete current;
+	}
+	//CASE 3: Remove a node somewhere in the linked list that is not the beginning or the end
+	else
+	{
+	  previous->next = current->next;
+	  //Remove the current
+	  delete current;
+	}
+      }
+      previous = current;
+      current = current->next;
+    }
   }
 
 
@@ -172,9 +214,7 @@ namespace cs3505
     * Authors:Pranav Rajan and Professor Peter Jensen
     */
   bool string_set::contains (const std::string & target) const
-  {    
-    // To be completed as part of the assignment. 
-
+  {
     // Determine which table entry chain might contain this string.
 
     int index = hash(target);
