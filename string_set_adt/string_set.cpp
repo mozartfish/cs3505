@@ -1,7 +1,8 @@
 /* A 'string set' is defined as a set of strings stored
  * in a hashtable that uses chaining to resolve collisions.
  *
- * Peter Jensen
+ * Authors: Pranav Rajan and Professor Peter Jensen
+ * Version 1.0
  * January 29, 2019
  */
 
@@ -168,10 +169,26 @@ namespace cs3505
 
   /** Returns true if the specified target element in in this set,
     *   false otherwise.
+    * Authors:Pranav Rajan and Professor Peter Jensen
     */
   bool string_set::contains (const std::string & target) const
   {    
-    // To be completed as part of the assignment.
+    // To be completed as part of the assignment. 
+
+    // Determine which table entry chain might contain this string.
+
+    int index = hash(target);
+
+    // Walk the chain (the linked list).  Check each entry for the
+    //   string.  If we find it, just bail out.  (No duplicates allowed.)
+
+    node *current = table[index];
+    while (current != NULL)
+    {
+      if (current->data == target)
+        return true;
+      current = current->next;
+    }
 
     return false;  // Stub - update/change as needed.
   }
