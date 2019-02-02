@@ -182,10 +182,11 @@ namespace cs3505
 	//CASE 1: Remove the first node from the linked list
 	if (previous == NULL)
 	{
-	  previous->next = current->next;
+	  current = current->next;
+	  previous = current;
 	  
 	  //call delete on current to remove memory
-	  delete current;
+	  delete previous;
 	}
 	//CASE 2: Remove the last node from the linked list
 	else if (current->next == NULL)
