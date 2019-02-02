@@ -185,7 +185,7 @@ namespace cs3505
 	  current = current->next;
 	  previous = current;
 	  
-	  //call delete on current to remove memory
+	  //call delete on previous to remove memory
 	  delete previous;
 	}
 	//CASE 2: Remove the last node from the linked list

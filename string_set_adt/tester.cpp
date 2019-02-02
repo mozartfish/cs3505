@@ -31,6 +31,8 @@ using namespace std;
 
 int main ()
 {
+  bool ok = true;
+
   // Open up another block.  This way, when the block ends,
   // variables local to the block will be destroyed, but main
   // will still be running.  (Did you know that you can open
@@ -93,6 +95,87 @@ int main ()
     // destroyed.  Local objects will have their destructors
     // called.  (Blocks are great for controlling scope/lifetime.)
   }
+
+  //Test 01: Test Contains Functionality
+  {
+    cout << "Test 01: Tests the functionality of the contains helper method with a set that contains an element" << endl;
+
+    //create a new string_set with a hashtable containing 1000 slots
+    cs3505::string_set contains_set(1000);
+
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+    
+    string p = "Utah";
+    ok = contains_set.contains(p);
+    
+    if (ok)
+    {
+      cout << "Test 01 passed" << endl;;
+    }
+    else
+    {
+      cout << "Test 01 failed. Expected the set to contain " << p  << endl;
+    }
+  }
+   //Test 02: Test Contains Functionality
+  {
+    cout << "Test 02: Tests the functionality of the contains helper method with a set that does not contain an element" << endl;
+
+    //create a new string_set with a hashtable containing 1000 slots
+    cs3505::string_set contains_set(1000);
+
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+    
+    string p = "hello";
+    ok = contains_set.contains(p);
+    
+    
+    if (ok == false)
+    {
+      cout << "Test 02 passed" << endl;;
+    }
+    else
+    {
+      cout << "Test 02 failed. Expected the set to not contain " << p  << endl;
+    }
+  }
+
+  //Test 03: Test Size functionality
+  {
+    cout << "Test 03: Tests the functionality of the size function to determine whether the set contains "
+	 << "the correct number of elements" << endl;
+    //create a new string_set with a hashtable containing 1000 slots
+    cs3505::string_set size_set(1000);
+    size_set.add("Live");
+    size_set.add("Life");
+    size_set.add("Elevated");
+    size_set.add("Utah");
+    
+    ok = (size_set.get_size() == 4);
+    
+    
+    if (ok)
+    {
+      cout << "Test 03 passed" << endl;;
+    }
+    else
+    {
+      cout << "Test 03 failed. Expected the size to be " << size_set.get_size() << endl;
+    }
+  }
+
+
+
+
+ 
+
+  
 
   // I really should test here to make sure that memory got cleaned up (that the
   // nodes and tables were deleted appropriately).  There is no such test here.
