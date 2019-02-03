@@ -21,6 +21,7 @@ namespace cs3505
   /** Constructor:  The parameter indicates the
     *   size of the hashtable that should be used
     *   to keep this set.
+    * Author: Professor Peter Jensen
     */
   string_set::string_set(int capacity)
   {
@@ -41,6 +42,7 @@ namespace cs3505
   /** Copy constructor:  Initialize this set
     *   to contain exactly the same elements as
     *   another set.
+    * Author: Professor Peter Jensen
     */
   string_set::string_set (const string_set & other)
   {
@@ -59,6 +61,7 @@ namespace cs3505
 
   /** Destructor:  release any memory allocated
     *   for this object.
+    * Author: Professor Peter Jensen
     */
   string_set::~string_set()
   {
@@ -72,6 +75,7 @@ namespace cs3505
     *   this object.  This effectively destroys the
     *   set, so it should only be called if this object
     *   is destructing, or is being assigned.
+    * Author: Professor Peter Jensen
     */
   void string_set::clean()
   {
@@ -107,6 +111,7 @@ namespace cs3505
     *   hash code (table index) will be identical.
     * The hash code is guaranteed to be in the
     *   range [0..capacity).
+    * Authors: Professor Peter Jensen and some really smart computer scientists
     */  
   int string_set::hash (const std::string & s) const
   {
@@ -122,6 +127,7 @@ namespace cs3505
 
   /** Adds the specified element to this set.  If the element
     *   is already in this set, no action is taken.
+    * Author: Professor Peter Jensen
     */
   void string_set::add (const std::string & target)
   {
@@ -164,53 +170,50 @@ namespace cs3505
     //   table must be appropriately updated.
 
     // To be completed as part of the assignment.
-     
 
-    // Determine which table entry chain might contain this string.
+   // Determine which table entry chain might contain this string.
 
     int index = hash(target);
 
-    // Walk the chain (the linked list).  Check each entry for the
-    //   string.  If we find it, just bail out.  (No duplicates allowed.)
 
+    node *previous = NULL; // declare a pointer to keep track of the previous node
+    node *temp = NULL; // declare a pointer to store the next node when we delete the current node in the linked list
     node *current = table[index];
-    node *previous = NULL;
     while (current != NULL)
     {
       if (current->data == target)
       {
-	//CASE 1: Remove the first node from the linked list
+	//CASE 1: REMOVE THE FIRST NODE IN THE LINKED LIST
 	if (previous == NULL)
 	{
-	  current = current->next;
-	  previous = current;
-	  
-	  //call delete on previous to remove memory
-	  delete previous;
+	  temp = current->next; // set temp to the node that next to points to for the current node
+	  delete current; // delete the current node
+	  table[index] = temp; // have the table index now point to temp
 	}
-	//CASE 2: Remove the last node from the linked list
+	
+	//CASE 2: REMOVE THE LAST NODE IN THE LINKED LIST
 	else if (current->next == NULL)
 	{
-	  previous->next = current->next;
-	  
-	  //call delete on current to remove it
-	  delete current;
+	  previous->next = NULL; // since previous points to the node before current we can point it to null
+	  delete current; // delete the current node to release memory
 	}
-	//CASE 3: Remove a node somewhere in the linked list that is not the beginning or the end
+	
+	//CASE 3: REMOVE A NODE IN THE MIDDLE OF THE LINKED LIST
 	else
 	{
-	  previous->next = current->next;
-
-	  //Remove the current
-	  delete current;
+	  temp = current->next; // set temp to the node that next points to for the current node;
+	  delete current; // delete the current node
+	  previous->next = temp; // since previous points to the node before current we can point it to temp
 	}
-      
+	
 	size--;
 	return;
       }
       previous = current;
       current = current->next;
     }
+ 
+
   }
 
 
@@ -235,7 +238,7 @@ namespace cs3505
       current = current->next;
     }
 
-    return false;  // Stub - update/change as needed.
+    return false;
   }
 
 
@@ -254,6 +257,7 @@ namespace cs3505
     *   clears out this set, builds an empty table, and copies
     *   the entries from the right hand side (rhs) set into
     *   this set.
+    * Authors: Pranav Rajan and Professor Peter Jensen
     */
   string_set & string_set::operator= (const string_set & rhs)
   {

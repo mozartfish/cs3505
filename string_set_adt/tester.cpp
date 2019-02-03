@@ -316,6 +316,7 @@ int main ()
         cout << "Test 07: Tests the functionality of the remove function using Yankee.txt" << endl;
 
         cs3505::string_set remove_set(1000);
+	set<string> stl_set; // The built-in set class - no constructor parameters
 
         ifstream remove_add("Yankee.txt");
 
@@ -330,16 +331,19 @@ int main ()
             }
             
             remove_set.add(word);
+	    stl_set.insert(word);
         }
 
         remove_add.close();
+	//cout << remove_set.get_size() << endl;
+	//cout << stl_set.size() << endl;
 
         ifstream remove_remove("Yankee.txt");
 
         while (true)
         {
             string word;
-            remove_remove>> word;
+            remove_remove >> word;
 
             if (remove_remove.fail())
             {
