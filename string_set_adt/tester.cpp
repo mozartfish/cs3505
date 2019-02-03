@@ -404,7 +404,7 @@ int main ()
   // up a block at any time to control local variable scope and
   // lifetime?)
   {
-      cout << "Test 09: Testing the functionality of overriden operator = using Professor Peter Jensen Sample Test Case" << endl;
+      cout << "Test 09: Tests the functionality of overriden operator = using Professor Peter Jensen Sample Test Case" << endl;
     // Create the two sets.  Declaring the local variables constructs the objects.
   
     set<string>         stl_set;  // The built-in set class - no constructor parameters.
@@ -460,7 +460,7 @@ int main ()
 
     //Test 10: Test Remove Functionality
     {
-        cout << "Test 10: Tests the functionality of the remove function with a small set when the set does "
+        cout << "Test 10: Tests the functionality of the remove function with a small set when the set does not "
              << "contain the element we want to remove" << endl;
 
         //create a new string_set with a hashtable containing 1000 spots
@@ -485,6 +485,98 @@ int main ()
             cout <<"Actual size was " << remove_set.get_size() << endl;
         }
     }
+
+    //Test 11: Test Copy Constructor Functionality
+    {
+        cout << "Test 11: Tests the functionality of the copy constructor using a small set." << endl;
+
+        //create a new string_set with a hashtable containing 1000 spots
+        cs3505::string_set string_set(1000);
+
+	string_set.add("Live");
+	string_set.add("Life");
+	string_set.add("Elevated");
+	string_set.add("Utah");
+	
+	cs3505::string_set copy_set(string_set);
+	
+	ok = (copy_set.get_size() == string_set.get_size());
+	
+	if(ok)
+	{
+	  cout << "Test 11 passed" << endl;
+	}
+        else
+        {
+	  cout << "Test 11 failed. Assumed copy_set would have a size of 4." << endl;
+	  cout << "Actual size of string_set: " << string_set.get_size() << endl;
+	  cout << "Actual size of copy_set: " << copy_set.get_size() << endl;
+        }
+    }
+
+  //Test 12: Test Assignment Operator Functionality
+   //Author: Professor Peter Jensen
+  // Open up another block.  This way, when the block ends,
+  // variables local to the block will be destroyed, but main
+  // will still be running.  (Did you know that you can open
+  // up a block at any time to control local variable scope and
+  // lifetime?)
+  {
+      cout << "Test 12: Tests the functionality of the copy constructor using Professor Peter Jensen Sample Test Case" << endl;
+    // Create the two sets.  Declaring the local variables constructs the objects.
+  
+    set<string>         stl_set;  // The built-in set class - no constructor parameters.
+
+    cs3505::string_set  our_set(1000);  // Our set class, with a hashtable of 1000 slots.
+  
+    // Open the file stream for reading.  (We'll be able to use it just like
+    //   the keyboard stream 'cin'.)
+
+    ifstream in("Yankee.txt");
+
+    // Loop for reading the file.  Note that it is controlled
+    //   from within the loop (see the 'break').
+    
+    while (true)
+    {
+      // Read a word (don't worry about punctuation)
+      
+      string word;
+      in >> word;
+
+      // If the read failed, we're probably at end of file
+      //   (or else the disk went bad).  Exit the loop.
+      
+      if (in.fail())
+	    break;
+
+      // Word successfully read.  Add it to both sets.
+      
+      stl_set.insert(word);
+      our_set.add(word);
+    }
+
+    // Close the file.
+
+    in.close();
+
+    cs3505::string_set copy_set(our_set);
+
+     ok = (copy_set.get_size() == stl_set.size());
+
+     if (ok)
+     {
+         cout << "Test 12 passed" << endl;
+     }
+     else
+     {
+         cout << "Test 12 failed. Expected copy_set size to have the same size as stl_set" << endl;
+         cout <<"Actual size of copy_set was " << copy_set.get_size() << endl;
+         cout << "Actual size of stl_set was " << stl_set.size() << endl;
+     }
+  }
+
+
   // I really should test here to make sure that memory got cleaned up (that the
   // nodes and tables were deleted appropriately).  There is no such test here.
   // It's simple to construct a test that counts objects:
