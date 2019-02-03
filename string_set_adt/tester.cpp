@@ -158,16 +158,16 @@ int main ()
         cout << "Test 03: Tests the functionality of the contains function using Yankee.txt" << endl;
 
         set<string> stl_set; // The built-in set class - no constructor parameters
-        cs3505:string_set contains_set(1000);
+        cs3505::string_set contains_set(1000);
 
-        ifstream in("Yankee.txt");
+        ifstream contain_add("Yankee.txt");
 
         while (true)
         {
             string word;
-            in >> word;
+           contain_add >> word;
 
-            if (in.fail())
+            if (contain_add.fail())
             {
                 break;
             }
@@ -176,17 +176,16 @@ int main ()
             stl_set.insert(word);
         }
 
-        in.close();
+       contain_add.close();
 
-        
-        ifstream in("Yankee.txt");
+        ifstream contain_contains("Yankee.txt");
 
         while (true)
         {
             string word;
-            in >> word;
+            contain_contains >> word;
 
-            if (in.fail())
+            if (contain_contains.fail())
             {
                 break;
             }
@@ -199,7 +198,7 @@ int main ()
             }
         }
 
-        in.close();
+        contain_contains.close();
 
         if (ok)
         {
@@ -247,7 +246,7 @@ int main ()
         cout << "Test 05: Tests the functionality of the get_size() function using Yankee.txt" << endl;
 
         set<string> stl_set; // The built-in set class - no constructor parameters
-        cs3505:string_set size_set(1000);
+        cs3505::string_set size_set(1000);
 
         ifstream in("Yankee.txt");
 
@@ -272,7 +271,7 @@ int main ()
 
         if (ok)
         {
-            cout << "Test 05 passed";
+	  cout << "Test 05 passed" << endl;
         }
         else
         {
@@ -316,16 +315,16 @@ int main ()
     {
         cout << "Test 07: Tests the functionality of the remove function using Yankee.txt" << endl;
 
-        cs3505:string_set remove_set(1000);
+        cs3505::string_set remove_set(1000);
 
-        ifstream in("Yankee.txt");
+        ifstream remove_add("Yankee.txt");
 
         while (true)
         {
             string word;
-            in >> word;
+            remove_add >> word;
 
-            if (in.fail())
+            if (remove_add.fail())
             {
                 break;
             }
@@ -333,16 +332,16 @@ int main ()
             remove_set.add(word);
         }
 
-        in.close();
+        remove_add.close();
 
-        ifstream in("Yankee.txt");
+        ifstream remove_remove("Yankee.txt");
 
         while (true)
         {
             string word;
-            in >> word;
+            remove_remove>> word;
 
-            if (in.fail())
+            if (remove_remove.fail())
             {
                 break;
             }
@@ -350,7 +349,7 @@ int main ()
             remove_set.remove(word);
         }
 
-        in.close();
+        remove_remove.close();
 
         ok = (remove_set.get_size() == 0);
 
@@ -377,7 +376,7 @@ int main ()
         string_set.add("Elevated");
         string_set.add("Utah");
 
-        std::string_set copy_set = string_set;
+        cs3505::string_set copy_set = string_set;
 
         ok = (string_set.get_size() == copy_set.get_size());
 
@@ -441,7 +440,7 @@ int main ()
 
      cs3505::string_set copy_set = our_set;
 
-     ok = (copy_set.get_size() == stl.size());
+     ok = (copy_set.get_size() == stl_set.size());
 
      if (ok)
      {

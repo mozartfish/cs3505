@@ -187,8 +187,6 @@ namespace cs3505
 	  
 	  //call delete on previous to remove memory
 	  delete previous;
-
-    size--;
 	}
 	//CASE 2: Remove the last node from the linked list
 	else if (current->next == NULL)
@@ -197,8 +195,6 @@ namespace cs3505
 	  
 	  //call delete on current to remove it
 	  delete current;
-
-    size--;
 	}
 	//CASE 3: Remove a node somewhere in the linked list that is not the beginning or the end
 	else
@@ -207,10 +203,9 @@ namespace cs3505
 
 	  //Remove the current
 	  delete current;
-
-    size--;
 	}
       
+	size--;
 	return;
       }
       previous = current;
