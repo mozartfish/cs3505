@@ -30,6 +30,7 @@ cs3505::node::node(const std::string & s, string_set & set)
     data(s)      // This calls the copy constructor - we are making a copy of the string.
 {
   // No other work needed - the initializers took care of everything.
+  set_pointer = & set;
 
   //CASE 1: We are entering the first element in the hash table
   if (set.head == NULL)
@@ -55,6 +56,27 @@ cs3505::node::~node()
 {
   // I'm not convinced that the recursive delete is the
   //   best approach.  I'll keep it (and you'll keep it too).
+
+  node * temp = NULL;
+  //CASE 1: REMOVING THE HEAD OF THE DOUBLY LINKED LIST
+  if (set_pointer->head == this)
+  {
+    temp = this->fore;
+    temp->back = NULL;
+    set_pointer->head = temp;
+  }
+  //CASE 2: REMOVING THE TAIL OF THE DOUBLY LINKED LIST
+  else if (set_pointer->tail == this)
+  {
+    temp = this->fore;
+    set_pointer->tail = temp;
+  }
+  //Remove a node from the doubly linked list
+  else
+  {
+    this->back->fore = this->fore;
+    this->fore->back = this->back;
+  }
 
   if (this->next != NULL)
     delete this->next;

@@ -31,6 +31,7 @@ namespace cs3505
       ~node();                         // Destructor
 
       std::string data;     // Variable to hold the element
+    string_set * set_pointer; // variable to point to the string set
       node        *next;    // Variable to point to the next node in the list
     node        *fore;     // Variable to point to the next node in the doubly linked list
     node        *back;    // Variable to point to the previous node in the doubly linked list
