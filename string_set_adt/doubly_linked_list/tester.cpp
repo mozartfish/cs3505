@@ -576,6 +576,66 @@ int main ()
      }
   }
 
+    //Test 13: Test Add Functionality for the Doubly Linked List For a Small Set
+    {
+        cout << "Test 13: Tests the functionality of the add function for the doubly linked list for a small set." << endl;
+
+        //create a new string_set with a hashtable containing 1000 spots
+        cs3505::string_set string_set(1000);
+        set<string> stl_set; // The built-in set class - no constructor parameters
+
+	string_set.add("Live");
+    string_set.add("Life");
+    string_set.add("Elevated");
+    string_set.add("Utah");
+
+    stl_set.insert("Live");
+    stl_set.insert("Life");
+    stl_set.insert("Elevated");
+    stl_set.insert("Utah");
+
+    vector<string> string_set_elements = string_set.get_elements();
+    vector<string>stl_set_elements;
+
+    for (set<string>::iterator it = stl_set.begin(); it != stl_set.end(); it++)
+    {
+        string word = *it;
+        stl_elements.push_back(word);
+        //cout << word << endl;
+    }
+
+    for (int i = 0; i < stl_set_elements.size(); i++)
+    {
+        if (!string_set_elements.at(i) == stl_set_elements.at(i))
+        {
+            ok = false;
+        }
+    }
+	
+	if(ok)
+	{
+	  cout << "Test 13 passed" << endl;
+	}
+        else
+        {
+	  cout << "Test 13 failed. Assumed string_set_elements and stl_set_elements had the same elements in the same order and the same size." << endl;
+	  cout << "Actual size of string_set_elements: " << string_set.size() << endl;
+	  cout << "Actual size of stl_set_elements: " << stl_set_elements.size() << endl;
+      cout <<"The contents for string_set_elements" << endl;
+      for (int j = 0; j < string_set_elements.size(); j++)
+      {
+          cout << string_set_elements.at(j) << endl;
+      }
+      cout << "The contents for stl_set_elements" << endl;
+      for (int k =0; k < stl_set_elements; k++)
+      {
+          cout << stl_set_elements.at(k) << endl;
+      } 
+        }
+    }
+
+
+
 
   // I really should test here to make sure that memory got cleaned up (that the
   // nodes and tables were deleted appropriately).  There is no such test here.
