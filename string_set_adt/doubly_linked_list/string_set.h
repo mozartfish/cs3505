@@ -9,6 +9,7 @@
 #define STRING_SET_H
 
 #include "node.h"
+#include <vector>
 
 namespace cs3505
 {
@@ -30,7 +31,8 @@ namespace cs3505
       void add      (const std::string & target);        // Not const - modifies the object
       void remove   (const std::string & target);        // Not const - modifies the object
       bool contains (const std::string & target) const;  // Const - does not change the object
-      int  get_size () const;                            // Const - does not change object
+      int  get_size () const;                            // Const - does not change the object
+      std::vector<std::string> get_elements() const;    // Const - does not change the object
 
       string_set & operator= (const string_set & rhs);   // Not const - modifies this object
       friend class node; // makes the node class a friend class of the string_set class
@@ -40,8 +42,6 @@ namespace cs3505
       void clean ();                                     // Not const - modifies the object
       node *head; // a pointer to the head node of the hashtable
       node *tail; // a pointer to the tail node of the hashtable
-      
-
   };
 
 }

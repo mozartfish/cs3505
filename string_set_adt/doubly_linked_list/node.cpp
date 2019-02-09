@@ -43,7 +43,7 @@ cs3505::node::node(const std::string & s, string_set & set)
   {
     set.tail->fore = this;
     this->back = set.tail;
-   set.tail = this;
+    set.tail = this;
   }
 
 }
