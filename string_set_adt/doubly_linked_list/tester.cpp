@@ -521,6 +521,103 @@ int main ()
   }
 
 
+ //Test 13: Test the Remove Function and get_elements
+  {
+    cout << "Test 13: Tests the functionality of the remove function and get_elements when removing the head node." << endl;
+
+    //create a new string_set with a hashtable containing 1000 spots
+    cs3505::string_set contains_set(1000);
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+
+    contains_set.remove("Live");
+        
+    vector<string>set_elements = contains_set.get_elements();
+    
+    for (int i = 0; i < set_elements.size(); i++)
+    {
+      cout <<"string_set_elements: The element at index " << i << " " << set_elements.at(i) << endl;
+    }
+
+    ok = contains_set.contains("Live");
+    if (!ok)
+    {
+      cout << "Test 13 passed" << endl;
+    }
+    else
+    {
+      cout << "Test 13 failed. Expected the set to not contain " << "Live" << endl;
+    }
+
+
+ //Test 14: Test the Remove Function and get_elements
+  {
+    cout << "Test 14: Tests the functionality of the remove function and get_elements when removing the tail node." << endl;
+
+    //create a new string_set with a hashtable containing 1000 spots
+    cs3505::string_set contains_set(1000);
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+
+    contains_set.remove("Utah");
+        
+    vector<string>set_elements = contains_set.get_elements();
+    
+    for (int i = 0; i < set_elements.size(); i++)
+    {
+      cout <<"string_set_elements: The element at index " << i << " " << set_elements.at(i) << endl;
+    }
+
+    ok = contains_set.contains("Utah");
+    if (!ok)
+    {
+      cout << "Test 14 passed" << endl;
+    }
+    else
+    {
+      cout << "Test 14 failed. Expected the set to not contain " << "Utah" << endl;
+    }
+  }
+
+
+ //Test 15: Test the Remove Function and get_elements
+  {
+    cout << "Test 15: Tests the functionality of the remove function and get_elements when removing a node from the middle of the linked list." << endl;
+
+    //create a new string_set with a hashtable containing 1000 spots
+    cs3505::string_set contains_set(1000);
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+
+    contains_set.remove("Elevated");
+        
+    vector<string>set_elements = contains_set.get_elements();
+    
+    for (int i = 0; i < set_elements.size(); i++)
+    {
+      cout <<"string_set_elements: The element at index " << i << " " << set_elements.at(i) << endl;
+    }
+
+    ok = contains_set.contains("Elevated");
+    if (!ok)
+    {
+      cout << "Test 15 passed" << endl;
+    }
+    else
+    {
+      cout << "Test 15 failed. Expected the set to not contain " << "Elevated" << endl;
+    }
+  }
+
+ }
+
+
   // I really should test here to make sure that memory got cleaned up (that the
   // nodes and tables were deleted appropriately).  There is no such test here.
   // It's simple to construct a test that counts objects:
