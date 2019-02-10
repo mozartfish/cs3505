@@ -101,7 +101,8 @@ cs3505::node::~node()
     this->back->fore = this->fore;
     this->fore->back = this->back;
   }
-  string_ref.size--;
+  
+  string_ref.size--; // decrease the number of elements in the set object
 
   if (this->next != NULL)
     delete this->next;

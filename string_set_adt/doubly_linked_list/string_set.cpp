@@ -181,8 +181,7 @@ namespace cs3505
 
 
     node *previous = NULL; // declare a pointer to keep track of the previous node
-    node *temp = NULL; // declare a pointer to store the next node when we delete the current node in the linked list
-    node *current = table[index];
+    node *current = table[index]; // declare a pointer to keep track of the current node
     while (current != NULL)
     {
       if (current->data == target)
@@ -190,9 +189,9 @@ namespace cs3505
 	//CASE 1: REMOVE THE FIRST NODE IN THE LINKED LIST
 	if (previous == NULL)
 	{
-	  temp = current->next; // set temp to the node that next to points to for the current node
+	 node *temp = current->next; // set a temp node to the node that next to points to for the current node
 	  delete current; // delete the current node
-	  table[index] = temp; // have the table index now point to temp
+	  table[index] = temp; // have the table index now point to  the temp node
 	}
 	
 	//CASE 2: REMOVE THE LAST NODE IN THE LINKED LIST
@@ -205,7 +204,7 @@ namespace cs3505
 	//CASE 3: REMOVE A NODE IN THE MIDDLE OF THE LINKED LIST
 	else
 	{
-	  temp = current->next; // set temp to the node that next points to for the current node;
+	  node *temp = current->next; // set temp to the node that next points to for the current node;
 	  delete current; // delete the current node
 	  previous->next = temp; // since previous points to the node before current we can point it to temp
 	}
