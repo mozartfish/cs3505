@@ -7,6 +7,8 @@
 
 #include "node.h"
 #include "string_set.h"
+#include <iostream>
+
 // We're not in a namespace.  We are not in any class.  Symbols defined
 //   here are globally available.  We need to qualify our function names
 //   so that we are definining our cs3505::node class functions.
@@ -27,25 +29,25 @@
   */
 cs3505::node::node(const std::string & s, string_set & set)
   : next(NULL),  // This syntax is used to call member variable constructors (or initialize them).
+    fore(NULL),
+    back(NULL),
     data(s)      // This calls the copy constructor - we are making a copy of the string.
 {
   // No other work needed - the initializers took care of everything.
-  set_pointer = & set;
 
-  //CASE 1: We are entering the first element in the hash table
+  // CASE 1: WE ARE ENTERING THE FIRST ELEMENT INTO THE HASHTABLE
   if (set.head == NULL)
   {
-    set.head = this;
-    set.tail = this;
+   set.head = this;
+   set.tail = this;
   }
-  //CASE 2: We are entering more than one element into the hashtable
   else
   {
     set.tail->fore = this;
     this->back = set.tail;
     set.tail = this;
   }
-
+  set_ref = & set;
 }
 
   
@@ -56,22 +58,24 @@ cs3505::node::~node()
 {
   // I'm not convinced that the recursive delete is the
   //   best approach.  I'll keep it (and you'll keep it too).
+  
+  node *temp = NULL; // a variable to keep track of the head and tail of the doubly linked list when removing the current head/tail
 
-  node * temp = NULL;
-  //CASE 1: REMOVING THE HEAD OF THE DOUBLY LINKED LIST
-  if (set_pointer->head == this)
+  //CASE 1: REMOVING THE HEAD NODE OF THE DOUBLY LINKED LIST
+  if (set_ref->head == this)
   {
-    temp = this->fore;
+    temp = set_ref->head->fore;
     temp->back = NULL;
-    set_pointer->head = temp;
+    set_ref->head = temp;
   }
-  //CASE 2: REMOVING THE TAIL OF THE DOUBLY LINKED LIST
-  else if (set_pointer->tail == this)
+  //CASE 2: REMOVING A NODE FROM THE END OF THE DOUBLY LINKED LIST
+  else if (this == set_ref->tail)
   {
-    temp = this->fore;
-    set_pointer->tail = temp;
+    temp = set_ref->tail->back;
+    temp->fore = NULL;
+    set_ref->tail = temp;
   }
-  //Remove a node from the doubly linked list
+  //CASE 3: REMOVING A NODE FROM THE MIDDLE OF THE DOUBLY LINKED LIST
   else
   {
     this->back->fore = this->fore;
@@ -79,9 +83,9 @@ cs3505::node::~node()
   }
 
   if (this->next != NULL)
-    delete this->next;
+  delete this->next;
 
-  // Invalidate the entry so that it is not accidentally used.
+  //Invalidate the entry so that it is not accidentally used.
 
   this->next = NULL;      
 }

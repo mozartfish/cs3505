@@ -157,6 +157,7 @@ namespace cs3505
     size++;
   }
 
+
   /** Removes the specified target element from this set.  If the
     *   target element is not in the set, no action is taken.
     */
@@ -211,8 +212,10 @@ namespace cs3505
       previous = current;
       current = current->next;
     }
+ 
 
   }
+
 
   /** Returns true if the specified target element in in this set,
     *   false otherwise.
@@ -309,7 +312,8 @@ namespace cs3505
     
     return *this;
   }
-   /** This function populates and returns a std::vector<std::string>
+
+ /** This function populates and returns a std::vector<std::string>
     * with all the elements in this set.  The strings in the vector will be in the
     * order that they were inserted into to this set, v[0] was added first, etc.
     * (Note:  Attempting to add a duplicate string does not count or
@@ -327,5 +331,7 @@ namespace cs3505
     }
     
     return elements;
-  }
+}
+
+  
 }
