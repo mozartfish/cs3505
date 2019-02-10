@@ -7,7 +7,6 @@
 
 #include "node.h"
 #include "string_set.h"
-#include <iostream>
 
 // We're not in a namespace.  We are not in any class.  Symbols defined
 //   here are globally available.  We need to qualify our function names
@@ -31,23 +30,28 @@ cs3505::node::node(const std::string & s, string_set & set)
   : next(NULL),  // This syntax is used to call member variable constructors (or initialize them).
     fore(NULL),
     back(NULL),
+    string_ref(set),
     data(s)      // This calls the copy constructor - we are making a copy of the string.
 {
   // No other work needed - the initializers took care of everything.
 
-  // CASE 1: WE ARE ENTERING THE FIRST ELEMENT INTO THE HASHTABLE
-  if (set.head == NULL)
+
+  //CASE 1: ADDING THE VERY FIRST ELEMENT INTO THE HASHTABLE
+  if (string_ref.head == NULL)
   {
-   set.head = this;
-   set.tail = this;
+    string_ref.head = this;
+    string_ref.head->back = NULL;
+    string_ref.tail = this;
+    string_ref.tail->fore = NULL;
   }
+  //CASE 2: ADDING MORE ELEMENTS AFTER THE FIRST ELEMENT
   else
   {
-    set.tail->fore = this;
-    this->back = set.tail;
+    string_ref.tail->fore = this;
+    this->back = string_ref.tail;
     set.tail = this;
+    string_ref.tail->fore = NULL;
   }
-  set_ref = & set;
 }
 
   
@@ -58,34 +62,51 @@ cs3505::node::~node()
 {
   // I'm not convinced that the recursive delete is the
   //   best approach.  I'll keep it (and you'll keep it too).
-  
-  node *temp = NULL; // a variable to keep track of the head and tail of the doubly linked list when removing the current head/tail
 
-  //CASE 1: REMOVING THE HEAD NODE OF THE DOUBLY LINKED LIST
-  if (set_ref->head == this)
+  //CASE 1: THERE IS ONLY 1 ELEMENT IN THE HASHTABLE
+  if (string_ref.get_size() == 1)
   {
-    temp = set_ref->head->fore;
+    string_ref.head->fore = NULL;
+    string_ref.head->back = NULL;
+    string_ref.head = NULL;
+    string_ref.tail->fore = NULL;
+    string_ref.tail = NULL;
+  }
+  //CASE 2: REMOVING THE HEAD NODE OF THE DOUBLY LINKED LIST
+  else if (string_ref.head == this)
+  {
+    node *temp = string_ref.head->fore;
     temp->back = NULL;
-    set_ref->head = temp;
+    string_ref.head = temp;
   }
-  //CASE 2: REMOVING A NODE FROM THE END OF THE DOUBLY LINKED LIST
-  else if (this == set_ref->tail)
+  //CASE 3: REMOVING THE TAIL NODE OF THE DOUBLY LINKED LIST
+  else if (string_ref.tail == this)
   {
-    temp = set_ref->tail->back;
+    node *temp = string_ref.tail->back;
     temp->fore = NULL;
-    set_ref->tail = temp;
+    string_ref.tail = temp;
   }
-  //CASE 3: REMOVING A NODE FROM THE MIDDLE OF THE DOUBLY LINKED LIST
+  //CASE 4: WHEN THERE ARE NO MORE ELEMENTS IN THE SET
+  else if (string_ref.get_size() == 0)
+  {
+    string_ref.head->fore = NULL;
+    string_ref.head->back = NULL;
+    string_ref.head = NULL;
+    string_ref.tail->fore = NULL;
+    string_ref.tail = NULL;
+  }
+  //CASE 5: REMOVING A NODE FROM THE MIDDLE OF THE LINKED LIST
   else
   {
     this->back->fore = this->fore;
     this->fore->back = this->back;
   }
+  string_ref.size--;
 
   if (this->next != NULL)
-  delete this->next;
+    delete this->next;
 
-  //Invalidate the entry so that it is not accidentally used.
+  // Invalidate the entry so that it is not accidentally used.
 
   this->next = NULL;      
 }

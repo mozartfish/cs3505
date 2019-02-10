@@ -9,7 +9,7 @@
 #define STRING_SET_H
 
 #include "node.h"
-#include <vector>
+#include<vector>
 
 namespace cs3505
 {
@@ -32,10 +32,9 @@ namespace cs3505
       void remove   (const std::string & target);        // Not const - modifies the object
       bool contains (const std::string & target) const;  // Const - does not change the object
       int  get_size () const;                            // Const - does not change object
-      std::vector<std::string> get_elements() const; // Const - does not chang object
-
-      string_set & operator= (const string_set & rhs);   // Not const - modifies this object
       friend class node; //Allow the node class to access the private data and the constructor of the string_set class
+      string_set & operator= (const string_set & rhs);   // Not const - modifies this object
+      std::vector<std::string> get_elements() const; // Const - does not change object
 
     private:
       int  hash (const std::string & s) const;           // Const - does not change this object

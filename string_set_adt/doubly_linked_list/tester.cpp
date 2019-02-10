@@ -40,68 +40,12 @@ int main ()
 {
   bool ok = true;
 
-  // Open up another block.  This way, when the block ends,
-  // variables local to the block will be destroyed, but main
-  // will still be running.  (Did you know that you can open
-  // up a block at any time to control local variable scope and
-  // lifetime?)
-  
-  {
-    // Create the two sets.  Declaring the local variables constructs the objects.
-  
-    set<string>         stl_set;  // The built-in set class - no constructor parameters.
+// Note:  Our classes were declared in a cs3505 namepsace.
+//        Instead of 'using namespace cs3505', I qualified the class names 
+//        below with cs3505::
+//        I did this for clarity.
 
-    cs3505::string_set  our_set(1000);  // Our set class, with a hashtable of 1000 slots.
-  
-    // Open the file stream for reading.  (We'll be able to use it just like
-    //   the keyboard stream 'cin'.)
 
-    ifstream in("Yankee.txt");
-
-    // Loop for reading the file.  Note that it is controlled
-    //   from within the loop (see the 'break').
-    
-    while (true)
-    {
-      // Read a word (don't worry about punctuation)
-      
-      string word;
-      in >> word;
-
-      // If the read failed, we're probably at end of file
-      //   (or else the disk went bad).  Exit the loop.
-      
-      if (in.fail())
-	      break;
-
-      // Word successfully read.  Add it to both sets.
-      
-      stl_set.insert(word);
-      our_set.add(word);
-    }
-
-    // Close the file.
-
-    in.close();
-
-    // Print out all the words in the reference solution.
-
-    for (set<string>::iterator it = stl_set.begin(); it != stl_set.end(); it++)
-    {
-      string word = *it;
-      cout << word << endl;
-    }
-
-    // Print out the number of words found in each set.
-
-    cout << "STL set contains " << stl_set.size() << " unique words.\n";
-    cout << "Our set contains " << our_set.get_size() << " unique words.\n"; 
-    
-    // Done.  Notice that this code block ends below.  Any local
-    // variables declared within this block will be automatically
-    // destroyed.  Local objects will have their destructors
-    // called.  (Blocks are great for controlling scope/lifetime.)
-  }
 
      //Test 01: Test Contains Functionality
     {

@@ -30,6 +30,8 @@ namespace cs3505
     this->table = new node*[capacity];
     this->capacity = capacity;
     this->size = 0;
+    this->head = NULL;
+    this->tail = NULL;
 
     // The array must be cleared -- it will have bogus values in it.
     //   (NULL means 'no linked list chain in this entry')
@@ -51,6 +53,8 @@ namespace cs3505
     table = NULL;
     size = 0;
     capacity = 0;
+    head = NULL;
+    tail = NULL;
 
     // Use our assignment operator to complete this step.
     //   (Dereference this, then assign to that instance.)
@@ -205,8 +209,6 @@ namespace cs3505
 	  delete current; // delete the current node
 	  previous->next = temp; // since previous points to the node before current we can point it to temp
 	}
-	
-	size--;
 	return;
       }
       previous = current;
@@ -313,7 +315,7 @@ namespace cs3505
     return *this;
   }
 
- /** This function populates and returns a std::vector<std::string>
+/** This function populates and returns a std::vector<std::string>
     * with all the elements in this set.  The strings in the vector will be in the
     * order that they were inserted into to this set, v[0] was added first, etc.
     * (Note:  Attempting to add a duplicate string does not count or
@@ -333,5 +335,4 @@ namespace cs3505
     return elements;
 }
 
-  
 }

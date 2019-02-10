@@ -9,7 +9,6 @@
 #define NODE_H
 
 #include <string>
-#include <iostream>
 
 namespace cs3505
 {
@@ -17,9 +16,8 @@ namespace cs3505
   //   (There are no definitions here.)
 
   /* Node class for holding elements. */
-  
-  //forward declaration for the string_set class
-  class string_set;
+
+  class string_set; // forward declaration for the string_set class
   
   class node
   {
@@ -31,10 +29,10 @@ namespace cs3505
       ~node();                         // Destructor
 
       std::string data;     // Variable to hold the element
-      node        *next;    // Variable to point to the next node in the singly linked list
-    node *fore; // Variable to point to the next node in the doubly linked list
+      node        *next;    // Variable to point to the next node in the list
+     node        *fore;     // Variable to point to the next node in the doubly linked list
     node *back; // Variable to point to the previous node in the doubly linked list
-    string_set *set_ref; // Variable to hold track to the reference of to the string set object passed into the constructor
+    string_set & string_ref; // A variable to hold the string_set reference
   };
 }
 
