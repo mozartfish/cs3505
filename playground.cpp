@@ -2,9 +2,10 @@
 
 int main()
 {
-  int *x;
-  int y;
-  
-  *x = 42;
-  y = *x;
+  int y = 3;
+  int *x = &y;
+  int &ref = *x;
+  ref++;
+  std::cout << y << std::endl;
+  return 0;
 }
