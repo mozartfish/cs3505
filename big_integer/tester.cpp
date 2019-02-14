@@ -12,6 +12,7 @@
  */
 
 #include "big_integer.h"
+#include "big_integer.cpp"
 #include <iostream>
 #include <cstdlib>
 
