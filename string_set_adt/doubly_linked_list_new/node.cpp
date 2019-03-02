@@ -30,8 +30,6 @@ cs3505::node::node(const std::string & s)
     data(s)      // This calls the copy constructor - we are making a copy of the string.
 {
   // No other work needed - the initializers took care of everything.
-  
-  node::constructor_counter++; // update the constructor counter
 }
 
   
@@ -42,8 +40,7 @@ cs3505::node::~node()
 {
   // I'm not convinced that the recursive delete is the
   //   best approach.  I'll keep it (and you'll keep it too).
-  
-  node::destructor_counter++; // update the destructor counter
+
   if (this->next != NULL)
     delete this->next;
 
@@ -51,19 +48,3 @@ cs3505::node::~node()
 
   this->next = NULL;      
 }
-
-/**
-  * Initialize the constructor and destructor counters
-  */
-  long long node::constructor_counter = 0;
-  long long node::destructor_counter = 0;
-  
-  long long node::constructor_count()
-  {
-	  return node::constructor_counter;
-  }
-  
-  long long node::destructor_count()
-  {
-	  return node::destructor_counter;
-  }
