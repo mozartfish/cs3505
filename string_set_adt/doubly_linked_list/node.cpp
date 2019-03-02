@@ -36,6 +36,8 @@ cs3505::node::node(const std::string & s, string_set & set)
   // No other work needed - the initializers took care of everything.
 
 
+	node::constructor_counter++; // update the constructor counter
+
   //CASE 1: ADDING THE VERY FIRST ELEMENT INTO THE HASHTABLE
   if (string_ref.head == NULL)
   {
@@ -54,6 +56,22 @@ cs3505::node::node(const std::string & s, string_set & set)
   }
 }
 
+/**
+  *Initialize the constructor and destructor counters
+  */
+  long long node::constructor_counter = 0;
+  long long node::destructor_counter = 0;
+
+long long node::constructor_count()
+{
+	return node::constructor_counter;
+}
+
+long long node::destructor_count()
+{
+	return node::destructor_counter;
+}
+
   
 /** Destructor:  release any memory allocated
   *   for this object.
@@ -62,7 +80,8 @@ cs3505::node::~node()
 {
   // I'm not convinced that the recursive delete is the
   //   best approach.  I'll keep it (and you'll keep it too).
-
+  
+  node::destructor_counter++; // update the node destructor counter
   //CASE 1: THERE IS ONLY 1 ELEMENT IN THE HASHTABLE
   if (string_ref.get_size() == 1)
   {
