@@ -25,9 +25,16 @@ namespace cs3505
     private:
       node(const std::string & data);  // Constructor (changed to take a reference to avoid a copy)
       ~node();                         // Destructor
-
       std::string data;     // Variable to hold the element
-      node        *next;    // Variable to point to the next node in the list    
+      node *next;    // Variable to point to the next node in the list
+
+	public:
+		static long long constructor_count(); // returns the number of calls to the node constructor
+		static long long destructor_count(); // returns the number of calls to the node destructor_count
+	
+	private:
+		static long long constructor_counter; // counter for keeping track of the number of calls to the node constructor
+		static long long destructor_counter; // counter for keeping track of the number of calls to the node destructor
   };
 }
 
