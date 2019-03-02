@@ -34,6 +34,8 @@ cs3505::node::node(const std::string & s, string_set & set)
     data(s)      // This calls the copy constructor - we are making a copy of the string.
 {
   // No other work needed - the initializers took care of everything.
+  
+  constructor_counter++; //update the number of times the constructor was called
 
 
   //CASE 1: ADDING THE VERY FIRST ELEMENT INTO THE HASHTABLE
@@ -54,6 +56,29 @@ cs3505::node::node(const std::string & s, string_set & set)
   }
 }
 
+/**
+  * Initialize the variables keeping track of the number of constructor and destructor calls
+  */
+  long long constructor_counter = 0;
+  long long destructor_counter = 0;
+  
+  /**
+    * Function that returns the number of times the node constructor has been called
+	*/
+	long long constructor_count()
+	{
+		return constructor_counter;
+	}
+	
+  /**
+    * Function that returns the number of times the node destructor has been called
+	*/
+	long long constructor_count()
+	{
+		return destructor_counter;
+	}
+  
+  
   
 /** Destructor:  release any memory allocated
   *   for this object.
@@ -62,7 +87,9 @@ cs3505::node::~node()
 {
   // I'm not convinced that the recursive delete is the
   //   best approach.  I'll keep it (and you'll keep it too).
-
+  
+  destructor_counter++; // update the number of times the destructor has been called
+  
   //CASE 1: THERE IS ONLY 1 ELEMENT IN THE HASHTABLE
   if (string_ref.get_size() == 1)
   {
