@@ -58,12 +58,12 @@ cs3505::node::~node()
   this->next = NULL;      
 }
 
-long long get_constructor_count()
+long long cs3505::node::get_constructor_count()
 {
   return cs3505::node::constructor_counter;
 }
 
-long long get_destructor_count()
+long long cs3505::node:: get_destructor_count()
 {
   return cs3505::node::destructor_counter;
 }

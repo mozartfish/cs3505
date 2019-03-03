@@ -29,15 +29,14 @@ namespace cs3505
       std::string data;     // Variable to hold the element
       node        *next;    // Variable to point to the next node in the list
 
-
-   public:
-    static long long get_constructor__count(); // Returns the number of times that the constructor has been called
-    static long long get_destructor_count(); // Returns the number of times the destructor has been called
+   private:
     static long long constructor_counter; // Counter for keeping track of the number of constructor calls
     static long long destructor_counter; // Destructor for keeping track of the number of destructor calls
 
 
-  
+   public:
+    static long long get_constructor_count(); // Returns the number of times that the constructor has been called
+    static long long get_destructor_count(); // Returns the number of times the destructor has been called
   };
 }
 
