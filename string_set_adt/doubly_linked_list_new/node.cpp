@@ -6,6 +6,7 @@
  */
 
 #include "node.h"
+#include "string_set.h"
 
 // We're not in a namespace.  We are not in any class.  Symbols defined
 //   here are globally available.  We need to qualify our function names

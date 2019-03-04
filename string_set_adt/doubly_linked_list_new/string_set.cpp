@@ -17,8 +17,8 @@ namespace cs3505
   /*******************************************************
    * string_set member function definitions
    ***************************************************** */
-  
-  /**
+
+   /**
    *Initialize the constructor and destructor counters
    */
   long long cs3505::string_set::constructor_counter = 0;
@@ -31,13 +31,13 @@ namespace cs3505
     */
   string_set::string_set(int capacity)
   {
-    cs3505::string_set::constructor_counter++;
-    
     // Set up a hashtable of the specified capacity.
 
     this->table = new node*[capacity];
     this->capacity = capacity;
     this->size = 0;
+    this->head = NULL;
+    this->tail = NULL;
 
     // The array must be cleared -- it will have bogus values in it.
     //   (NULL means 'no linked list chain in this entry')
@@ -55,11 +55,12 @@ namespace cs3505
   string_set::string_set (const string_set & other)
   {
     // Give initial values to ensure the object is well-formed.
-    cs3505::string_set::constructor_counter++;
 
     table = NULL;
     size = 0;
     capacity = 0;
+    head = NULL;
+    tail = NULL;
 
     // Use our assignment operator to complete this step.
     //   (Dereference this, then assign to that instance.)
@@ -75,7 +76,7 @@ namespace cs3505
   string_set::~string_set()
   {
     // Use a helper function to do all the work.
-    cs3505::string_set::destructor_counter++;
+
     clean();
   }
 
@@ -214,8 +215,6 @@ namespace cs3505
 	  delete current; // delete the current node
 	  previous->next = temp; // since previous points to the node before current we can point it to temp
 	}
-	
-	size--;
 	return;
       }
       previous = current;
@@ -318,8 +317,29 @@ namespace cs3505
 	current = current->next;
       }
     }
+    
     return *this;
   }
+
+/** This function populates and returns a std::vector<std::string>
+    * with all the elements in this set.  The strings in the vector will be in the
+    * order that they were inserted into to this set, v[0] was added first, etc.
+    * (Note:  Attempting to add a duplicate string does not count or
+    * change this ordering.)
+    * The size of the return vector will be the size of this string_set.
+    */
+  std::vector<std::string> string_set::get_elements() const
+  {
+    std::vector<std::string>elements;
+    node *current = head;
+    while (current != NULL)
+    {
+      elements.push_back(current->data);
+      current = current->fore;
+    }
+    
+    return elements;
+}
 
   long long cs3505::string_set::get_set_constructor_count()
   {
@@ -331,16 +351,4 @@ namespace cs3505
     return cs3505::string_set::destructor_counter;
   }
 
-   /** This function populates and returns a std::vector<std::string>
-    * with all the elements in this set.  The strings in the vector will be in the
-    * order that they were inserted into to this set, v[0] was added first, etc.
-    * (Note:  Attempting to add a duplicate string does not count or
-    * change this ordering.)
-    * The size of the return vector will be the size of this string_set.
-    */
-  std::vector<std::string> get_elements()
-  {
-    std::vector<std::string>elements;
-    return elements;
-  }
 }
