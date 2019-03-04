@@ -157,7 +157,7 @@ namespace cs3505
 
     // Make a new node, then link it in to the beginning of the chain.
 
-    node *n = new node(target); // The node is created, but points nowhere.
+    node *n = new node(target, *this); // The node is created, but points nowhere.
     n->next = table[index];     // Point the node to the head node of the chain.
     table[index] = n;           // Point the head of the chain to our new node.
    
@@ -338,7 +338,9 @@ namespace cs3505
     * change this ordering.)
     * The size of the return vector will be the size of this string_set.
     */
-  std::vector<std::string> get_elements() const
+  std::vector<std::string> get_elements()
   {
+    std::vector<std::string>elements;
+    return elements;
   }
 }

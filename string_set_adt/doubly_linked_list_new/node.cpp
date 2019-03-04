@@ -31,8 +31,11 @@ long long cs3505::node::destructor_counter = 0;
   *   an element.  It is initialized to
   *   not point to any other node.
   */
-cs3505::node::node(const std::string & s)
+cs3505::node::node(const std::string & s, string_set &set)
   : next(NULL),  // This syntax is used to call member variable constructors (or initialize them).
+    fore(NULL),
+    back(NULL),
+    set_ref(set),
     data(s)      // This calls the copy constructor - we are making a copy of the string.
 {
   // No other work needed - the initializers took care of everything.
