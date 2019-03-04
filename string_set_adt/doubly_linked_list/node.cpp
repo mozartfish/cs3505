@@ -22,35 +22,41 @@
  * node member function definitions
  ***************************************************** */
 
+/**
+ * Initialize the constructor and destructor counters
+ */
+long long cs3505::node::constructor_counter = 0;
+long long cs3505::node::destructor_counter = 0;
+
 /** Constructor:  Creates a node containing
   *   an element.  It is initialized to
   *   not point to any other node.
   */
-cs3505::node::node(const std::string & s, string_set & set)
+cs3505::node::node(const std::string & s, string_set &set)
   : next(NULL),  // This syntax is used to call member variable constructors (or initialize them).
     fore(NULL),
     back(NULL),
-    string_ref(set),
+    set_ref(set),
     data(s)      // This calls the copy constructor - we are making a copy of the string.
 {
   // No other work needed - the initializers took care of everything.
-
-
-  //CASE 1: ADDING THE VERY FIRST ELEMENT INTO THE HASHTABLE
-  if (string_ref.head == NULL)
+  cs3505::node::constructor_counter++;
+  
+  //CASE 01: ADDING THE VERY FIRST ELEMENT INTO THE HASHTABLE
+  if (set_ref.head == NULL)
   {
-    string_ref.head = this;
-    string_ref.head->back = NULL;
-    string_ref.tail = this;
-    string_ref.tail->fore = NULL;
+    set_ref.head = this;
+    set_ref.head->back = NULL;
+    set_ref.tail = this;
+    set_ref.tail->fore = NULL;
   }
-  //CASE 2: ADDING MORE ELEMENTS AFTER THE FIRST ELEMENT
+  //CASE O2: ADDING ELEMENTS AFTER THE VERY FIRST ELEMENT INTO THE HASHTABLE
   else
   {
-    string_ref.tail->fore = this;
-    this->back = string_ref.tail;
+    set_ref.tail->fore = this;
+    this->back = set_ref.tail;
     set.tail = this;
-    string_ref.tail->fore = NULL;
+    set_ref.tail->fore = NULL;
   }
 }
 
@@ -58,42 +64,47 @@ cs3505::node::node(const std::string & s, string_set & set)
 /** Destructor:  release any memory allocated
   *   for this object.
   */
+
 cs3505::node::~node()
 {
   // I'm not convinced that the recursive delete is the
   //   best approach.  I'll keep it (and you'll keep it too).
 
-  //CASE 1: THERE IS ONLY 1 ELEMENT IN THE HASHTABLE
-  if (string_ref.get_size() == 1)
+  cs3505::node::destructor_counter++;
+
+ //CASE 1: THERE IS ONLY 1 ELEMENT IN THE HASHTABLE
+  if (set_ref.get_size() == 1)
   {
-    string_ref.head->fore = NULL;
-    string_ref.head->back = NULL;
-    string_ref.head = NULL;
-    string_ref.tail->fore = NULL;
-    string_ref.tail = NULL;
+    set_ref.head->fore = NULL;
+    set_ref.head->back = NULL;
+    set_ref.head = NULL;
+    set_ref.tail->fore = NULL;
+    set_ref.tail = NULL;
   }
   //CASE 2: REMOVING THE HEAD NODE OF THE DOUBLY LINKED LIST
-  else if (string_ref.head == this)
+  else if (set_ref.head == this)
   {
-    node *temp = string_ref.head->fore;
-    temp->back = NULL;
-    string_ref.head = temp;
+    // node *temp = set_ref.head->fore;
+    set_ref.head = set_ref.head->fore;
+    this->fore = NULL;
+    this->back = NULL;
   }
   //CASE 3: REMOVING THE TAIL NODE OF THE DOUBLY LINKED LIST
-  else if (string_ref.tail == this)
+  else if (set_ref.tail == this)
   {
-    node *temp = string_ref.tail->back;
-    temp->fore = NULL;
-    string_ref.tail = temp;
+    // node *temp = set_ref.tail->back;
+    set_ref.tail = set_ref.tail->back;
+    this->fore = NULL;
+    this->back = NULL;
   }
   //CASE 4: WHEN THERE ARE NO MORE ELEMENTS IN THE SET
-  else if (string_ref.get_size() == 0)
+  else if (set_ref.get_size() == 0)
   {
-    string_ref.head->fore = NULL;
-    string_ref.head->back = NULL;
-    string_ref.head = NULL;
-    string_ref.tail->fore = NULL;
-    string_ref.tail = NULL;
+    set_ref.head->fore = NULL;
+    set_ref.head->back = NULL;
+    set_ref.head = NULL;
+    set_ref.tail->fore = NULL;
+    set_ref.tail = NULL;
   }
   //CASE 5: REMOVING A NODE FROM THE MIDDLE OF THE LINKED LIST
   else
@@ -101,7 +112,6 @@ cs3505::node::~node()
     this->back->fore = this->fore;
     this->fore->back = this->back;
   }
-  string_ref.size--;
 
   if (this->next != NULL)
     delete this->next;
@@ -109,4 +119,14 @@ cs3505::node::~node()
   // Invalidate the entry so that it is not accidentally used.
 
   this->next = NULL;      
+}
+
+long long cs3505::node::node_get_constructor_count()
+{
+  return cs3505::node::constructor_counter;
+}
+
+long long cs3505::node:: node_get_destructor_count()
+{
+  return cs3505::node::destructor_counter;
 }

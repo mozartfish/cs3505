@@ -17,6 +17,12 @@ namespace cs3505
   /*******************************************************
    * string_set member function definitions
    ***************************************************** */
+
+   /**
+   *Initialize the constructor and destructor counters
+   */
+  long long cs3505::string_set::constructor_counter = 0;
+  long long cs3505::string_set::destructor_counter = 0;
   
   /** Constructor:  The parameter indicates the
     *   size of the hashtable that should be used
@@ -25,6 +31,7 @@ namespace cs3505
     */
   string_set::string_set(int capacity)
   {
+     cs3505::string_set::constructor_counter++;
     // Set up a hashtable of the specified capacity.
 
     this->table = new node*[capacity];
@@ -48,6 +55,7 @@ namespace cs3505
     */
   string_set::string_set (const string_set & other)
   {
+    cs3505::string_set::constructor_counter++;
     // Give initial values to ensure the object is well-formed.
 
     table = NULL;
@@ -69,6 +77,7 @@ namespace cs3505
     */
   string_set::~string_set()
   {
+    cs3505::string_set::destructor_counter++;
     // Use a helper function to do all the work.
 
     clean();
@@ -191,6 +200,7 @@ namespace cs3505
 	if (previous == NULL)
 	{
 	  temp = current->next; // set temp to the node that next to points to for the current node
+	  current->next = NULL;
 	  delete current; // delete the current node
 	  table[index] = temp; // have the table index now point to temp
 	}
@@ -199,6 +209,7 @@ namespace cs3505
 	else if (current->next == NULL)
 	{
 	  previous->next = NULL; // since previous points to the node before current we can point it to null
+	  current->next = NULL;
 	  delete current; // delete the current node to release memory
 	}
 	
@@ -206,9 +217,11 @@ namespace cs3505
 	else
 	{
 	  temp = current->next; // set temp to the node that next points to for the current node;
+	  current->next = NULL;
 	  delete current; // delete the current node
 	  previous->next = temp; // since previous points to the node before current we can point it to temp
 	}
+	size--;
 	return;
       }
       previous = current;
@@ -334,5 +347,15 @@ namespace cs3505
     
     return elements;
 }
+
+  long long cs3505::string_set::get_set_constructor_count()
+  {
+    return cs3505::string_set::constructor_counter;
+  }
+  
+  long long cs3505::string_set::get_set_destructor_count()
+  {
+    return cs3505::string_set::destructor_counter;
+  }
 
 }

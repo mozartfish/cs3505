@@ -35,12 +35,16 @@ namespace cs3505
       friend class node; //Allow the node class to access the private data and the constructor of the string_set class
       string_set & operator= (const string_set & rhs);   // Not const - modifies this object
       std::vector<std::string> get_elements() const; // Const - does not change object
+      static long long get_set_constructor_count(); // Returns the number of times that the set constructor is called
+      static long long get_set_destructor_count(); // Returns the number of times that the set destructor is called
 
     private:
       int  hash (const std::string & s) const;           // Const - does not change this object
       void clean ();                                     // Not const - modifies the object
       node *head; // the first node in the doubly linked list
       node *tail; // the last node in the doubly linked list
+      static long long constructor_counter; // COunter for keeping track of the number of calls to the set constructor
+      static long long destructor_counter; // COunter for keeping track of the number of calls to the set destructor
 
   };
 
