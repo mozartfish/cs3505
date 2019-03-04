@@ -18,6 +18,12 @@ namespace cs3505
    * string_set member function definitions
    ***************************************************** */
   
+  /**
+   *Initialize the constructor and destructor counters
+   */
+  long long cs3505::string_set::constructor_counter = 0;
+  long long cs3505::string_set::destructor_counter = 0;
+  
   /** Constructor:  The parameter indicates the
     *   size of the hashtable that should be used
     *   to keep this set.
@@ -25,6 +31,8 @@ namespace cs3505
     */
   string_set::string_set(int capacity)
   {
+    cs3505::string_set::constructor_counter++;
+    
     // Set up a hashtable of the specified capacity.
 
     this->table = new node*[capacity];
@@ -47,6 +55,7 @@ namespace cs3505
   string_set::string_set (const string_set & other)
   {
     // Give initial values to ensure the object is well-formed.
+    cs3505::string_set::constructor_counter++;
 
     table = NULL;
     size = 0;
@@ -66,7 +75,7 @@ namespace cs3505
   string_set::~string_set()
   {
     // Use a helper function to do all the work.
-
+    cs3505::string_set::destructor_counter++;
     clean();
   }
 
@@ -309,7 +318,16 @@ namespace cs3505
 	current = current->next;
       }
     }
-    
     return *this;
+  }
+
+  long long cs3505::string_set::get_set_constructor_count()
+  {
+    return cs3505::string_set::constructor_counter;
+  }
+  
+  long long cs3505::string_set::get_set_destructor_count()
+  {
+    return cs3505::string_set::destructor_counter;
   }
 }
