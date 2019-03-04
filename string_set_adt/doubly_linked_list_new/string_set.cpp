@@ -309,25 +309,7 @@ namespace cs3505
 	current = current->next;
       }
     }
+    
     return *this;
   }
 }
-
- /** This function populates and returns a std::vector<std::string>
-    * with all the elements in this set.  The strings in the vector will be in the
-    * order that they were inserted into to this set, v[0] was added first, etc.
-    * (Note:  Attempting to add a duplicate string does not count or
-    * change this ordering.)
-    * The size of the return vector will be the size of this string_set.
-    */
-  std::vector<std::string> get_elements() const
-  {
-    std::vector<std::string>elements;
-    node *current = head;
-    while (current != NULL)
-    {
-      elements.push_back(current->data);
-      current = current->fore;
-    }
-    return elements;
-  }
