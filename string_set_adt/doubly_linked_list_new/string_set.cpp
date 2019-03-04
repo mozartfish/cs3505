@@ -200,6 +200,7 @@ namespace cs3505
 	if (previous == NULL)
 	{
 	  temp = current->next; // set temp to the node that next to points to for the current node
+	  current->next = NULL;
 	  delete current; // delete the current node
 	  table[index] = temp; // have the table index now point to temp
 	}
@@ -208,6 +209,7 @@ namespace cs3505
 	else if (current->next == NULL)
 	{
 	  previous->next = NULL; // since previous points to the node before current we can point it to null
+	  current->next = NULL;
 	  delete current; // delete the current node to release memory
 	}
 	
@@ -215,6 +217,7 @@ namespace cs3505
 	else
 	{
 	  temp = current->next; // set temp to the node that next points to for the current node;
+	  current->next = NULL;
 	  delete current; // delete the current node
 	  previous->next = temp; // since previous points to the node before current we can point it to temp
 	}

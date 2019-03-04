@@ -84,16 +84,18 @@ cs3505::node::~node()
   //CASE 2: REMOVING THE HEAD NODE OF THE DOUBLY LINKED LIST
   else if (set_ref.head == this)
   {
-    node *temp = set_ref.head->fore;
-    temp->back = NULL;
-    set_ref.head = temp;
+    // node *temp = set_ref.head->fore;
+    set_ref.head = set_ref.head->fore;
+    this->fore = NULL;
+    this->back = NULL;
   }
   //CASE 3: REMOVING THE TAIL NODE OF THE DOUBLY LINKED LIST
   else if (set_ref.tail == this)
   {
-    node *temp = set_ref.tail->back;
-    temp->fore = NULL;
-    set_ref.tail = temp;
+    // node *temp = set_ref.tail->back;
+    set_ref.tail = set_ref.tail->back;
+    this->fore = NULL;
+    this->back = NULL;
   }
   //CASE 4: WHEN THERE ARE NO MORE ELEMENTS IN THE SET
   else if (set_ref.get_size() == 0)
