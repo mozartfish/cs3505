@@ -31,6 +31,7 @@ namespace cs3505
     */
   string_set::string_set(int capacity)
   {
+     cs3505::string_set::constructor_counter++;
     // Set up a hashtable of the specified capacity.
 
     this->table = new node*[capacity];
@@ -54,6 +55,7 @@ namespace cs3505
     */
   string_set::string_set (const string_set & other)
   {
+    cs3505::string_set::constructor_counter++;
     // Give initial values to ensure the object is well-formed.
 
     table = NULL;
@@ -75,6 +77,7 @@ namespace cs3505
     */
   string_set::~string_set()
   {
+    cs3505::string_set::destructor_counter++;
     // Use a helper function to do all the work.
 
     clean();
@@ -215,6 +218,7 @@ namespace cs3505
 	  delete current; // delete the current node
 	  previous->next = temp; // since previous points to the node before current we can point it to temp
 	}
+	size--;
 	return;
       }
       previous = current;

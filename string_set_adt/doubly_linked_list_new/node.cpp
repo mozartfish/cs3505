@@ -41,6 +41,23 @@ cs3505::node::node(const std::string & s, string_set &set)
 {
   // No other work needed - the initializers took care of everything.
   cs3505::node::constructor_counter++;
+  
+  //CASE 01: ADDING THE VERY FIRST ELEMENT INTO THE HASHTABLE
+  if (set_ref.head == NULL)
+  {
+    set_ref.head = this;
+    set_ref.head->back = NULL;
+    set_ref.tail = this;
+    set_ref.tail->fore = NULL;
+  }
+  //CASE O2: ADDING ELEMENTS AFTER THE VERY FIRST ELEMENT INTO THE HASHTABLE
+  else
+  {
+    set_ref.tail->fore = this;
+    this->back = set_ref.tail;
+    set.tail = this;
+    set_ref.tail->fore = NULL;
+  }
 }
 
   
@@ -54,6 +71,45 @@ cs3505::node::~node()
   //   best approach.  I'll keep it (and you'll keep it too).
 
   cs3505::node::destructor_counter++;
+
+ //CASE 1: THERE IS ONLY 1 ELEMENT IN THE HASHTABLE
+  if (set_ref.get_size() == 1)
+  {
+    set_ref.head->fore = NULL;
+    set_ref.head->back = NULL;
+    set_ref.head = NULL;
+    set_ref.tail->fore = NULL;
+    set_ref.tail = NULL;
+  }
+  //CASE 2: REMOVING THE HEAD NODE OF THE DOUBLY LINKED LIST
+  else if (set_ref.head == this)
+  {
+    node *temp = set_ref.head->fore;
+    temp->back = NULL;
+    set_ref.head = temp;
+  }
+  //CASE 3: REMOVING THE TAIL NODE OF THE DOUBLY LINKED LIST
+  else if (set_ref.tail == this)
+  {
+    node *temp = set_ref.tail->back;
+    temp->fore = NULL;
+    set_ref.tail = temp;
+  }
+  //CASE 4: WHEN THERE ARE NO MORE ELEMENTS IN THE SET
+  else if (set_ref.get_size() == 0)
+  {
+    set_ref.head->fore = NULL;
+    set_ref.head->back = NULL;
+    set_ref.head = NULL;
+    set_ref.tail->fore = NULL;
+    set_ref.tail = NULL;
+  }
+  //CASE 5: REMOVING A NODE FROM THE MIDDLE OF THE LINKED LIST
+  else
+  {
+    this->back->fore = this->fore;
+    this->fore->back = this->back;
+  }
 
   if (this->next != NULL)
     delete this->next;
