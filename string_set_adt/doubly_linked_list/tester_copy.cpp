@@ -39,31 +39,33 @@ using namespace std;
 int main ()
 {
   class string_set;
-  //TEST 01: THE MOST BASIC TEST
+  //TEST 01: A crazy stress test as recommended by peer review
   {
-    cs3505::string_set set(1000);
-    ifstream in("Yankee.txt");
-    while (true)
-    {
-      string word;
-      in >> word;
-      if (in.fail())
-      {
-	break;
-      }
-      set.add(word);
-    }
-    in.close();
-    // cout << "Sets created : " << cs3505::string_set::get_set_constructor_count() << endl;
-    // cout << "Nodes created: " << cs3505::node::node_get_constructor_count() << endl;
-    vector<string> elements = set.get_elements();
-    for (int i = 0; i < elements.size(); i++)
-    {
-      // set.remove(elements.at(i));
-    }
-    // cout << "Nodes deleted: " << cs3505::node::node_get_destructor_count() << endl;
+	  for (int i = 0; i < 100000; i++)
+	  {
+		  cs3505::string_set set(1000);
+		  ifstream in("Yanke.txt");
+		  while (true)
+		  {
+			  string word;
+			  in >> word;
+			  if (in.fail())
+			  {
+				  break;
+			  }
+			  set.add(word);
+		  }
+		  in.close();
+		  // cout << "Sets created: " << cs3505:string_set::get_set_constructor_count() << endl;
+		  // cout << "Nodes created: " << cs3505::node::get_constructor_count() << endl;
+		  vector<string> elements = set.get_elements();
+		  for (int j = 0; j < elements.size(); j++)
+		  {
+			  set.remove(elements.at(i));
+		  }
+		  //cout << "Nodes deleted: " << cs3505::node_get_destructor_count() << endl;
+	  }
   }
-  
   cout << "Sets created : " << cs3505::string_set::get_set_constructor_count() << endl;
   cout << "Sets deleted: " << cs3505::string_set::get_set_destructor_count() << endl;
   cout << "Nodes created: " << cs3505::node::node_get_constructor_count() << endl;
