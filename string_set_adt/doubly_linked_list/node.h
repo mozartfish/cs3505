@@ -37,8 +37,8 @@ namespace cs3505
     string_set & set_ref; // A variable to hold the string_set reference
     
    public:
-    static long long node_get_constructor_count(); // Returns the number of times that the constructor has been called
-    static long long node_get_destructor_count(); // Returns the number of times the destructor has been called
+    static long long get_node_constructor_count(); // Returns the number of times that the constructor has been called
+    static long long get_node_destructor_count(); // Returns the number of times the destructor has been called
   };
 }
 

@@ -38,37 +38,111 @@ using namespace std;
 
 int main ()
 {
-  class string_set;
-  //TEST 01: A crazy stress test as recommended by peer review
+  bool ok = true;
+
+// Note:  Our classes were declared in a cs3505 namepsace.
+//        Instead of 'using namespace cs3505', I qualified the class names 
+//        below with cs3505::
+//        I did this for clarity.
+
+
+
+ //Test 13: Test the Remove Function and get_elements
   {
-	  for (int i = 0; i < 100000; i++)
-	  {
-		  cs3505::string_set set(1000);
-		  ifstream in("Yanke.txt");
-		  while (true)
-		  {
-			  string word;
-			  in >> word;
-			  if (in.fail())
-			  {
-				  break;
-			  }
-			  set.add(word);
-		  }
-		  in.close();
-		  // cout << "Sets created: " << cs3505:string_set::get_set_constructor_count() << endl;
-		  // cout << "Nodes created: " << cs3505::node::get_constructor_count() << endl;
-		  vector<string> elements = set.get_elements();
-		  for (int j = 0; j < elements.size(); j++)
-		  {
-			  set.remove(elements.at(i));
-		  }
-		  //cout << "Nodes deleted: " << cs3505::node_get_destructor_count() << endl;
-	  }
+    cout << "Test 13: Tests the functionality of the remove function and get_elements when removing the head node." << endl;
+
+    //create a new string_set with a hashtable containing 1000 spots
+    cs3505::string_set contains_set(1000);
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+
+    contains_set.remove("Live");
+        
+    vector<string>set_elements = contains_set.get_elements();
+    
+    for (int i = 0; i < set_elements.size(); i++)
+    {
+      cout <<"string_set_elements: The element at index " << i << " " << set_elements.at(i) << endl;
+    }
+
+    ok = contains_set.contains("Live");
+    if (!ok)
+    {
+      cout << "Test 13 passed" << endl;
+    }
+    else
+    {
+      cout << "Test 13 failed. Expected the set to not contain " << "Live" << endl;
+    }
+
+
+ //Test 14: Test the Remove Function and get_elements
+  {
+    cout << "Test 14: Tests the functionality of the remove function and get_elements when removing the tail node." << endl;
+
+    //create a new string_set with a hashtable containing 1000 spots
+    cs3505::string_set contains_set(1000);
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+
+    contains_set.remove("Utah");
+        
+    vector<string>set_elements = contains_set.get_elements();
+    
+    for (int i = 0; i < set_elements.size(); i++)
+    {
+      cout <<"string_set_elements: The element at index " << i << " " << set_elements.at(i) << endl;
+    }
+
+    ok = contains_set.contains("Utah");
+    if (!ok)
+    {
+      cout << "Test 14 passed" << endl;
+    }
+    else
+    {
+      cout << "Test 14 failed. Expected the set to not contain " << "Utah" << endl;
+    }
   }
-  cout << "Sets created : " << cs3505::string_set::get_set_constructor_count() << endl;
-  cout << "Sets deleted: " << cs3505::string_set::get_set_destructor_count() << endl;
-  cout << "Nodes created: " << cs3505::node::node_get_constructor_count() << endl;
-  cout << "Nodes deleted: " << cs3505::node::node_get_destructor_count() << endl;
-  return 0;
+
+
+ //Test 15: Test the Remove Function and get_elements
+  {
+    cout << "Test 15: Tests the functionality of the remove function and get_elements when removing a node from the middle of the linked list." << endl;
+
+    //create a new string_set with a hashtable containing 1000 spots
+    cs3505::string_set contains_set(1000);
+    contains_set.add("Live");
+    contains_set.add("Life");
+    contains_set.add("Elevated");
+    contains_set.add("Utah");
+
+    contains_set.remove("Elevated");
+        
+    vector<string>set_elements = contains_set.get_elements();
+    
+    for (int i = 0; i < set_elements.size(); i++)
+    {
+      cout <<"string_set_elements: The element at index " << i << " " << set_elements.at(i) << endl;
+    }
+
+    ok = contains_set.contains("Elevated");
+    if (!ok)
+    {
+      cout << "Test 15 passed" << endl;
+    }
+    else
+    {
+      cout << "Test 15 failed. Expected the set to not contain " << "Elevated" << endl;
+    }
+  }
+
+ }
+
+ 
+ return 0;
 }
