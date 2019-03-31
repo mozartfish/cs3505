@@ -42,23 +42,48 @@ class observer;  // Never defined or used.
 //
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
-
-
-void value::set (int v)
+class value 
 {
-  cout << "      ==> value::set" << endl;
+ private: 
+  int v;
 
-  this->v = v;
+  //Constructor
+  value::value (int v)
+  {
+    cout << "      ==> value::value" << endl;
 
-  cout << "      <-- value::set" << endl;
-}
+    this->v = v;
 
-int value::get ()
-{
-  cout << "      ==> value::get" << endl;
-  cout << "      <-- value::get" << endl;
-  return v;
-}
+    cout << "      <-- value::value" << endl;
+  }
+
+  //Destructor
+  ~value::value()
+  {
+    cout << "      ==> ~value::value" << endl;
+    
+    delete this;
+
+    cout << "      <-- ~value::value" << endl;
+ 
+  }
+  void value::set (int v)
+  {
+    cout << "      ==> value::set" << endl;
+
+    this->v = v;
+
+    cout << "      <-- value::set" << endl;
+  }
+
+  int value::get ()
+  {
+    cout << "      ==> value::get" << endl;
+    cout << "      <-- value::get" << endl;
+    return v;
+  }
+
+};
 
 
 /*************************
@@ -74,65 +99,92 @@ int value::get ()
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
-
-
-void remote::set (int v)
+class remote 
 {
-  cout << "    ==> remote::set" << endl;
+ private:
+  int v;
 
-  // Update the remote value and keep it as well.
+  //Constructor
+  remote::remote(int v)
+  {
+    cout << "      ==> remote::remote" << endl;
 
-  this->set_remote_value (v);
-  value::set(v);              // Change superclass field
+    this->v = v;
 
-  cout << "    <-- remote::set" << endl;
-}
+    cout << "      <-- remote::remote" << endl;
+  }
 
-int remote::get ()
-{
-  cout << "    ==> remote::get" << endl;
+  //Destructor
+  ~remote::remote 
+  {
+    cout << "      ==> ~remote::remote" << endl;
 
-  // If the remote value has changed, we'll update this
-  // object to the remote value before returning it.
+    delete this;
 
-  // To avoid setting the remote value, only set the value
-  //   in the superclass.  (Don't use the 'set' function in
-  //   this class, or it will set the remote value to what we
-  //   just got remotely, which is a waste of time.)
+    cout << "      <-- ~remote::remote" << endl;
+  }
+
+  void remote::set (int v)
+  {
+    cout << "    ==> remote::set" << endl;
+
+    // Update the remote value and keep it as well.
+
+    this->set_remote_value (v);
+    value::set(v);              // Change superclass field
+
+    cout << "    <-- remote::set" << endl;
+  }
+
+  int remote::get ()
+  {
+    cout << "    ==> remote::get" << endl;
+
+    // If the remote value has changed, we'll update this
+    // object to the remote value before returning it.
+
+    // To avoid setting the remote value, only set the value
+    //   in the superclass.  (Don't use the 'set' function in
+    //   this class, or it will set the remote value to what we
+    //   just got remotely, which is a waste of time.)
   
-  if (remote_has_changed())
-    value::set(this->get_remote_value());
+    if (remote_has_changed())
+      value::set(this->get_remote_value());
 
-  // Just get the value (from the superclass) and return it.
+    // Just get the value (from the superclass) and return it.
 
-  int result = value::get();
+    int result = value::get();
 
-  cout << "    <-- remote::get" << endl;
+    cout << "    <-- remote::get" << endl;
 
-  return result;
-}
+    return result;
+  }
 
-bool remote::remote_has_changed()
-{
-  cout << "    ==> remote::remote_has_changed" << endl;
-  cout << "    <-- remote::remote_has_changed" << endl;
+  bool remote::remote_has_changed()
+  {
+    cout << "    ==> remote::remote_has_changed" << endl;
+    cout << "    <-- remote::remote_has_changed" << endl;
 
-  return false;  // Just a stub -- assume that true might be returned.
-}
+    return false;  // Just a stub -- assume that true might be returned.
+  }
 
-int remote::get_remote_value()
-{
-  cout << "    ==> remote::get_remote_value" << endl;
-  cout << "    <-- remote::get_remote_value" << endl;
+  int remote::get_remote_value()
+  {
+    cout << "    ==> remote::get_remote_value" << endl;
+    cout << "    <-- remote::get_remote_value" << endl;
 
-  return 42;  // Just a stub -- an appropriate integer may be returned.
-}
+    return 42;  // Just a stub -- an appropriate integer may be returned.
+  }
 
-void remote::set_remote_value(int v)
-{
-  cout << "    ==> remote::set_remote_value" << endl;
-  cout << "    <-- remote::set_remote_value" << endl;
-}
+  void remote::set_remote_value(int v)
+  {
+    cout << "    ==> remote::set_remote_value" << endl;
+    cout << "    <-- remote::set_remote_value" << endl;
+  }
+  
+};
+
+
 
 
 /***********************
