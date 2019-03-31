@@ -102,7 +102,7 @@ int value::get ()
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
-class remote
+class remote : public value
 {
  private:
   int v; // variable to store the data for remote objects
@@ -117,11 +117,11 @@ class remote
   void set_remote_value(int v); // set_remote_value function declaration
 };
 
-remote::remote(int v)
+remote::remote(int v) : value(v)
 {
   cout << "      ==> remote::remote" << endl;
 
-  this->v = v;
+  // this->v = v;
   this->previous_v = 0;
 
   cout << "      <-- remote::remote" << endl;
@@ -211,7 +211,7 @@ void remote::set_remote_value(int v)
 //   the definitions (right here).  In other words, keep it simple.
 
 
-class observable
+class observable : public value
 {
  private:
   int v;
@@ -223,11 +223,11 @@ class observable
   void register_observer(observer *); // register_observer function declaration
 };
 
-observable::observable(int new_value)
+observable::observable(int new_value) : value(v)
 {
   cout << "      ==> observer::observer" << endl;
 
-  this->v = new_value;
+  // this->v = new_value;
 
   cout << "      <-- observer::observer" << endl;
 }
@@ -289,7 +289,7 @@ void observable::register_observer (observer *)
 //   you need (and why).  There will only be a couple of actually useful
 //   statements (and the debugging output statements, indented two spaces).
 
-class task_priority 
+class task_priority
 {
  private:
   int v;
