@@ -19,7 +19,7 @@
  * deficient design here.  Get the code to compile and match the given
  * design.  Later, you will describe possible fixes in essay questions.
  *
- * Peter Jensen  // TODO -- change this or lose a point.
+ * Peter Jensen and Pranav Rajan// TODO -- change this or lose a point.
  * March 28, 2019
  */
 
@@ -43,6 +43,34 @@ class observer;  // Never defined or used.
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
+class value
+{
+ private:
+  int v; // variable for storing the internal data for objects of type value
+ public:
+  value(int v); // constructor 
+  ~value(); // destructor
+  void set(int v); // set function declartion
+  int get(); // get function declaration
+};
+
+value::value(int v)
+{
+  cout << "      ==> value::value" << endl;
+
+  this->v = v;
+
+  cout << "      <-- value::value" << endl;
+}
+
+value::~value()
+{
+  cout << "      ==> value::~value" << endl;
+
+  delete this;
+
+  cout << "      <-- value::~value" << endl;
+}
 
 void value::set (int v)
 {
