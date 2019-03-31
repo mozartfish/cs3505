@@ -19,7 +19,7 @@
  * deficient design here.  Get the code to compile and match the given
  * design.  Later, you will describe possible fixes in essay questions.
  *
- * Peter Jensen  // TODO -- change this or lose a point.
+ * Professor Peter Jensen and Pranav Rajan  // TODO -- change this or lose a point.
  * March 28, 2019
  */
 
@@ -58,7 +58,7 @@ class value
   }
 
   //Destructor
-  ~value::value()
+  value::~value()
   {
     cout << "      ==> ~value::value" << endl;
     
@@ -115,7 +115,7 @@ class remote
   }
 
   //Destructor
-  ~remote::remote 
+  remote::~remote 
   {
     cout << "      ==> ~remote::remote" << endl;
 
@@ -200,37 +200,62 @@ class remote
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
-
-
-void observable::set (int new_value)
+class observable
 {
-  cout << "    ==> observable::set" << endl;
+ private:
+  int value;
 
-  // Only change the value and send out notifications 
-  //   if the new value is different than the current value in 'this'.
+  //Constructor
+  observable::observable(int value)
+  {
+     cout << "      ==> observable::observable" << endl;
 
-  if (  ) // TODO:  Fix this condition to match the comment above.
+     this->value = value;
+
+     cout << "      <-- observable::observable" << endl;
+  }
+
+  //Destructor
+  observable::~observable()
+  {
+     cout << "      ==> ~observable::observable" << endl;
+
+     delete this;
+
+    cout << "      <-- ~observable::observable" << endl;
+  }
+  
+  void observable::set (int new_value)
+  {
+    cout << "    ==> observable::set" << endl;
+
+    // Only change the value and send out notifications 
+    //   if the new value is different than the current value in 'this'.
+
+    if (new_value != this->value) // TODO:  Fix this condition to match the comment above.
     {
       // TODO:  Change superclass field, keep the new value 
-
+      value::set_value(new_value);
       notify_observers ();
     }
 
-  cout << "    <-- observable::set" << endl;
-}
+    cout << "    <-- observable::set" << endl;
+  }
 
-void observable::notify_observers ()
-{
-  cout << "    ==> observable::notify_observers" << endl;
-  cout << "    <-- observable::notify_observers" << endl;
-}
+  void observable::notify_observers ()
+  {
+    cout << "    ==> observable::notify_observers" << endl;
+    cout << "    <-- observable::notify_observers" << endl;
+  }
 
 
-void observable::register_observer (observer *)
-{
-  cout << "    ==> observable::register_observer" << endl;
-  cout << "    <-- observable::register_observer" << endl;
-}
+  void observable::register_observer (observer *)
+  {
+    cout << "    ==> observable::register_observer" << endl;
+    cout << "    <-- observable::register_observer" << endl;
+  }
+
+};
 
 
 /**************************
