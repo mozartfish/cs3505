@@ -19,7 +19,7 @@
  * deficient design here.  Get the code to compile and match the given
  * design.  Later, you will describe possible fixes in essay questions.
  *
- * Professor Peter Jensen and Pranav Rajan  // TODO -- change this or lose a point.
+ * Peter Jensen  // TODO -- change this or lose a point.
  * March 28, 2019
  */
 
@@ -42,48 +42,51 @@ class observer;  // Never defined or used.
 //
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
-class value 
+
+class value
 {
- private: 
-  int v;
-
-  //Constructor
-  value::value (int v)
-  {
-    cout << "      ==> value::value" << endl;
-
-    this->v = v;
-
-    cout << "      <-- value::value" << endl;
-  }
-
-  //Destructor
-  value::~value()
-  {
-    cout << "      ==> ~value::value" << endl;
-    
-    delete this;
-
-    cout << "      <-- ~value::value" << endl;
- 
-  }
-  void value::set (int v)
-  {
-    cout << "      ==> value::set" << endl;
-
-    this->v = v;
-
-    cout << "      <-- value::set" << endl;
-  }
-
-  int value::get ()
-  {
-    cout << "      ==> value::get" << endl;
-    cout << "      <-- value::get" << endl;
-    return v;
-  }
-
+ private:
+  int v; // variable for storing  value object data
+ public:
+  value(int v); // constructor
+  ~value(); // destructor
+  void set(int v); // set function declaration
+  int get(); // get function declaration
 };
+
+value::value(int v)
+{
+  cout << "      ==> value::value" << endl;
+
+  this->v = v;
+
+  cout << "      <-- value::value" << endl;
+}
+
+value::~value()
+{
+  cout << "      ==> value::set" << endl;
+
+  this->v = v;
+
+  cout << "      <-- value::set" << endl;
+}
+
+void value::set (int v)
+{
+  cout << "      ==> value::~value" << endl;
+
+  this->v = v;
+
+  cout << "      <-- value::~value" << endl;
+}
+
+int value::get ()
+{
+  cout << "      ==> value::get" << endl;
+  cout << "      <-- value::get" << endl;
+  return v;
+}
 
 
 /*************************
@@ -99,92 +102,65 @@ class value
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
-class remote 
+
+
+void remote::set (int v)
 {
- private:
-  int v;
+  cout << "    ==> remote::set" << endl;
 
-  //Constructor
-  remote::remote(int v)
-  {
-    cout << "      ==> remote::remote" << endl;
+  // Update the remote value and keep it as well.
 
-    this->v = v;
+  this->set_remote_value (v);
+  value::set(v);              // Change superclass field
 
-    cout << "      <-- remote::remote" << endl;
-  }
+  cout << "    <-- remote::set" << endl;
+}
 
-  //Destructor
-  remote::~remote 
-  {
-    cout << "      ==> ~remote::remote" << endl;
+int remote::get ()
+{
+  cout << "    ==> remote::get" << endl;
 
-    delete this;
+  // If the remote value has changed, we'll update this
+  // object to the remote value before returning it.
 
-    cout << "      <-- ~remote::remote" << endl;
-  }
-
-  void remote::set (int v)
-  {
-    cout << "    ==> remote::set" << endl;
-
-    // Update the remote value and keep it as well.
-
-    this->set_remote_value (v);
-    value::set(v);              // Change superclass field
-
-    cout << "    <-- remote::set" << endl;
-  }
-
-  int remote::get ()
-  {
-    cout << "    ==> remote::get" << endl;
-
-    // If the remote value has changed, we'll update this
-    // object to the remote value before returning it.
-
-    // To avoid setting the remote value, only set the value
-    //   in the superclass.  (Don't use the 'set' function in
-    //   this class, or it will set the remote value to what we
-    //   just got remotely, which is a waste of time.)
+  // To avoid setting the remote value, only set the value
+  //   in the superclass.  (Don't use the 'set' function in
+  //   this class, or it will set the remote value to what we
+  //   just got remotely, which is a waste of time.)
   
-    if (remote_has_changed())
-      value::set(this->get_remote_value());
+  if (remote_has_changed())
+    value::set(this->get_remote_value());
 
-    // Just get the value (from the superclass) and return it.
+  // Just get the value (from the superclass) and return it.
 
-    int result = value::get();
+  int result = value::get();
 
-    cout << "    <-- remote::get" << endl;
+  cout << "    <-- remote::get" << endl;
 
-    return result;
-  }
+  return result;
+}
 
-  bool remote::remote_has_changed()
-  {
-    cout << "    ==> remote::remote_has_changed" << endl;
-    cout << "    <-- remote::remote_has_changed" << endl;
+bool remote::remote_has_changed()
+{
+  cout << "    ==> remote::remote_has_changed" << endl;
+  cout << "    <-- remote::remote_has_changed" << endl;
 
-    return false;  // Just a stub -- assume that true might be returned.
-  }
+  return false;  // Just a stub -- assume that true might be returned.
+}
 
-  int remote::get_remote_value()
-  {
-    cout << "    ==> remote::get_remote_value" << endl;
-    cout << "    <-- remote::get_remote_value" << endl;
+int remote::get_remote_value()
+{
+  cout << "    ==> remote::get_remote_value" << endl;
+  cout << "    <-- remote::get_remote_value" << endl;
 
-    return 42;  // Just a stub -- an appropriate integer may be returned.
-  }
+  return 42;  // Just a stub -- an appropriate integer may be returned.
+}
 
-  void remote::set_remote_value(int v)
-  {
-    cout << "    ==> remote::set_remote_value" << endl;
-    cout << "    <-- remote::set_remote_value" << endl;
-  }
-  
-};
-
-
+void remote::set_remote_value(int v)
+{
+  cout << "    ==> remote::set_remote_value" << endl;
+  cout << "    <-- remote::set_remote_value" << endl;
+}
 
 
 /***********************
@@ -200,62 +176,37 @@ class remote
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
-class observable
+
+
+void observable::set (int new_value)
 {
- private:
-  int value;
+  cout << "    ==> observable::set" << endl;
 
-  //Constructor
-  observable::observable(int value)
-  {
-     cout << "      ==> observable::observable" << endl;
+  // Only change the value and send out notifications 
+  //   if the new value is different than the current value in 'this'.
 
-     this->value = value;
-
-     cout << "      <-- observable::observable" << endl;
-  }
-
-  //Destructor
-  observable::~observable()
-  {
-     cout << "      ==> ~observable::observable" << endl;
-
-     delete this;
-
-    cout << "      <-- ~observable::observable" << endl;
-  }
-  
-  void observable::set (int new_value)
-  {
-    cout << "    ==> observable::set" << endl;
-
-    // Only change the value and send out notifications 
-    //   if the new value is different than the current value in 'this'.
-
-    if (new_value != this->value) // TODO:  Fix this condition to match the comment above.
+  if (  ) // TODO:  Fix this condition to match the comment above.
     {
       // TODO:  Change superclass field, keep the new value 
-      value::set_value(new_value);
+
       notify_observers ();
     }
 
-    cout << "    <-- observable::set" << endl;
-  }
+  cout << "    <-- observable::set" << endl;
+}
 
-  void observable::notify_observers ()
-  {
-    cout << "    ==> observable::notify_observers" << endl;
-    cout << "    <-- observable::notify_observers" << endl;
-  }
+void observable::notify_observers ()
+{
+  cout << "    ==> observable::notify_observers" << endl;
+  cout << "    <-- observable::notify_observers" << endl;
+}
 
 
-  void observable::register_observer (observer *)
-  {
-    cout << "    ==> observable::register_observer" << endl;
-    cout << "    <-- observable::register_observer" << endl;
-  }
-
-};
+void observable::register_observer (observer *)
+{
+  cout << "    ==> observable::register_observer" << endl;
+  cout << "    <-- observable::register_observer" << endl;
+}
 
 
 /**************************
