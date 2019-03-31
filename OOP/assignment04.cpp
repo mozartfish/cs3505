@@ -289,6 +289,35 @@ void observable::register_observer (observer *)
 //   you need (and why).  There will only be a couple of actually useful
 //   statements (and the debugging output statements, indented two spaces).
 
+class task_priority 
+{
+ private:
+  int v;
+ public:
+  task_priority(int v); // constructor
+  ~task_priority(); // destructor  
+};
+
+task_priority::task_priority(int v)
+{
+  cout << "      ==> task_priority::task_priority" << endl;
+
+  this->v = v;
+
+  cout << "      <-- task_priority::task_priority" << endl;
+}
+
+task_priority::~task_priority()
+{
+  cout << "      ==> task_priority::~task_priority" << endl;
+
+  delete this;
+
+  cout << "      <-- task_priority::~task_priority" << endl;
+}
+
+
+
 
 // TODO:  Nothing else is needed beyond this point.  Do not change main at all.
 
