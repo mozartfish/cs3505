@@ -147,7 +147,6 @@ void remote::set (int v)
 
   cout << "    <-- remote::set" << endl;
 }
-
 int remote::get ()
 {
   cout << "    ==> remote::get" << endl;
@@ -212,6 +211,35 @@ void remote::set_remote_value(int v)
 //   the definitions (right here).  In other words, keep it simple.
 
 
+class observable
+{
+ private:
+  int v;
+ public:
+  observable(int v); // constructor
+  ~observable(); // destructor
+  void set(int new_value); // set function declaration
+  void notify_observers(); // notify_observers function declaration
+  void register_observer(observer *); // register_observer function declaration
+};
+
+observable::observable(int new_value)
+{
+  cout << "      ==> observer::observer" << endl;
+
+  this->v = new_value;
+
+  cout << "      <-- observer::observer" << endl;
+}
+
+observable::~observable()
+{
+  cout << "      ==> observer::~observer" << endl;
+
+  delete this;
+
+  cout << "      <-- observer::~observer" << endl;
+}
 
 void observable::set (int new_value)
 {
@@ -220,10 +248,10 @@ void observable::set (int new_value)
   // Only change the value and send out notifications 
   //   if the new value is different than the current value in 'this'.
 
-  if (  ) // TODO:  Fix this condition to match the comment above.
+  if (this->v != new_value) // TODO:  Fix this condition to match the comment above.
     {
       // TODO:  Change superclass field, keep the new value 
-
+      value::set(new_value);
       notify_observers ();
     }
 
