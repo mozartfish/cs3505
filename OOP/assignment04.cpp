@@ -210,7 +210,30 @@ void remote::set_remote_value(int v)
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
+class observable : public virtual value
+{
+ public:
+  observable(int v); // constructor
+  ~observable(); // destructor
+  void set(int new_value); // set function declaration
+  void notify_observers(); // notify_observers function declaration
+  void register_observer(observer *); // register_observer function declaration
+};
 
+observable::observable(int v):value(v)
+{
+  cout << "      ==> observable::observable" << endl;
+  cout << "      <-- observable::observable" << endl;
+}
+
+observable::~observable()
+{
+  cout << "      ==> observable::~observable" << endl;
+
+  delete this;
+
+  cout << "      <-- observable::~observable" << endl;
+}
 
 void observable::set (int new_value)
 {
@@ -219,9 +242,10 @@ void observable::set (int new_value)
   // Only change the value and send out notifications 
   //   if the new value is different than the current value in 'this'.
 
-  if (  ) // TODO:  Fix this condition to match the comment above.
+  if (new_value != value::get()) // TODO:  Fix this condition to match the comment above.
     {
-      // TODO:  Change superclass field, keep the new value 
+      // TODO:  Change superclass field, keep the new value
+      value::set(new_value);
 
       notify_observers ();
     }
