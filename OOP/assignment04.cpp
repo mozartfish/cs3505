@@ -292,6 +292,34 @@ void observable::register_observer (observer *)
 //   you need (and why).  There will only be a couple of actually useful
 //   statements (and the debugging output statements, indented two spaces).
 
+class task_priority : public remote, public observable
+{
+private:
+  int task_priority_v; // variable to store task_priority data
+public:
+  task_priority(int v); // constructor
+  ~task_priority(); // destructor
+};
+
+task_priority::task_priority(int v):remote(v), observable(v)
+{
+  cout << "      ==> task_priority::task_priority" << endl;
+
+  this->task_priority_v = v;
+
+  cout << "      <-- task_priority::task_priority" << endl;
+}
+
+task_priority::~task_priority()
+{
+  cout << "      ==> task_priority::~task_priority" << endl;
+
+  delete this;
+
+  cout << "      <-- task_priority::~task_priority" << endl;
+}
+
+
 
 // TODO:  Nothing else is needed beyond this point.  Do not change main at all.
 
