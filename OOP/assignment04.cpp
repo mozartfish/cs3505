@@ -43,6 +43,34 @@ class observer;  // Never defined or used.
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
+class value
+{
+ private:
+  int v; // variable for storing the internal data for objects of type value
+ public:
+  value(int v); // constructor
+  ~value(); // destructor
+  void set(int v); // set function declaration
+  int get(); // get function declaration
+};
+
+value::value(int v)
+{
+  cout << "      ==> value::value" << endl;
+
+  this->v = v;
+
+  cout << "      <-- value::value" << endl;
+}
+
+value::~value()
+{
+  cout << "      ==> value::~value" << endl;
+
+  delete this;
+
+  cout << "      <-- value::~value" << endl;
+}
 
 void value::set (int v)
 {
@@ -74,7 +102,37 @@ int value::get ()
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
+class remote : public virtual value
+{
+ private: 
+  int old_v; // variable for storing old remote data
+ public:
+  remote(int v); // constructor
+  ~remote(); // destructor
+  void set(int v); // set function declaration
+  int get(); // get function declaration
+  bool remote_has_changed(); // remote_has_changed function declaration
+  int get_remote_value(); // get_remote_value function declaration
+  void set_remote_value(int v); // set_remote_value function declaration 
+};
 
+remote::remote(int v):value(v)
+{
+  cout << "      ==> remote::remote" << endl;
+
+  this->old_v = value::get();
+
+  cout << "      <-- remote::remote" << endl;
+}
+
+remote::~remote()
+{
+  cout << "      ==> remote::~remote" << endl;
+
+  delete this;
+
+  cout << "      <-- remote::~remote" << endl;
+}
 
 void remote::set (int v)
 {
@@ -117,6 +175,10 @@ bool remote::remote_has_changed()
   cout << "    ==> remote::remote_has_changed" << endl;
   cout << "    <-- remote::remote_has_changed" << endl;
 
+  if (this->old_v != value::get())
+  {
+    return true;
+  }
   return false;  // Just a stub -- assume that true might be returned.
 }
 
@@ -125,7 +187,7 @@ int remote::get_remote_value()
   cout << "    ==> remote::get_remote_value" << endl;
   cout << "    <-- remote::get_remote_value" << endl;
 
-  return 42;  // Just a stub -- an appropriate integer may be returned.
+  return value::get();  // Just a stub -- an appropriate integer may be returned.
 }
 
 void remote::set_remote_value(int v)
