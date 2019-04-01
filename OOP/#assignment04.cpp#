@@ -43,7 +43,34 @@ class observer;  // Never defined or used.
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
+class value
+{
+ private:
+  int v; // variable for storing the internal data for objects of type value
+ public:
+  value(int v); // constructor
+  ~value(); // destructor
+  void set(int v); // set function declaration
+  int get(); // get function declaration
+};
 
+value::value(int v)
+{
+  cout << "      ==> value::value" << endl;
+
+  this->v = v;
+
+  cout << "      <-- value::value" << endl;
+}
+
+value::~value()
+{
+  cout << "      ==> value::~val" << endl;
+
+  delete this;
+
+  cout << "      <-- value::set" << endl;
+}
 void value::set (int v)
 {
   cout << "      ==> value::set" << endl;

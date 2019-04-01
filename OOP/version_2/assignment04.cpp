@@ -19,8 +19,8 @@
  * deficient design here.  Get the code to compile and match the given
  * design.  Later, you will describe possible fixes in essay questions.
  *
- * Peter Jensen  // TODO -- change this or lose a point.
- * March 28, 2019
+ * Peter Jensen and Pranav Rajan// TODO -- change this or lose a point.
+ * April 1, 2019
  */
 
 #include <iostream>
@@ -43,6 +43,34 @@ class observer;  // Never defined or used.
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
+class value
+{
+ protected:
+  int v; // variable for storing the internal data for objects of type value
+ public:
+  value(int v); // constructor 
+  ~value(); // destructor
+  virtual  void set(int v); // set function declartion
+  virtual int get(); // get function declaration
+};
+
+value::value(int v)
+{
+  cout << "      ==> value::value" << endl;
+
+  this->v = v;
+
+  cout << "      <-- value::value" << endl;
+}
+
+value::~value()
+{
+  cout << "      ==> value::~value" << endl;
+
+  delete this;
+
+  cout << "      <-- value::~value" << endl;
+}
 
 void value::set (int v)
 {
@@ -75,6 +103,39 @@ int value::get ()
 //   the definitions (right here).  In other words, keep it simple.
 
 
+class remote : public virtual value
+{
+ private:
+  int remote_v; // variable for storing remote data
+  int old_v; // variable for storing old value data
+ public:
+  remote(int v); // constructor
+  ~remote(); // destructor
+  void set(int v); // set function declaration
+  int get(); // get function declaration
+  bool remote_has_changed(); // remote_has_changed function declaration
+  int get_remote_value(); // get_remote_value function declaration
+  void set_remote_value(int v); // set_remote_value function declaration
+};
+
+remote::remote(int v):value(v)
+{
+  cout << "      ==> remote::remote" << endl;
+
+  this->remote_v = v;
+  this->old_v = value::get();
+
+  cout << "      <-- remote::remote" << endl;
+}
+
+remote::~remote()
+{
+  cout << "      ==> remote::~remote" << endl;
+
+  delete this;
+
+  cout << "      <-- remote::~remote" << endl;
+}
 
 void remote::set (int v)
 {
@@ -116,6 +177,11 @@ bool remote::remote_has_changed()
 {
   cout << "    ==> remote::remote_has_changed" << endl;
   cout << "    <-- remote::remote_has_changed" << endl;
+  if (value::get() != this->old_v)
+  {
+    this->old_v = value::get();
+    return true;
+  } 
 
   return false;  // Just a stub -- assume that true might be returned.
 }
@@ -125,7 +191,7 @@ int remote::get_remote_value()
   cout << "    ==> remote::get_remote_value" << endl;
   cout << "    <-- remote::get_remote_value" << endl;
 
-  return 42;  // Just a stub -- an appropriate integer may be returned.
+  return value::get();  // Just a stub -- an appropriate integer may be returned.
 }
 
 void remote::set_remote_value(int v)
@@ -148,7 +214,35 @@ void remote::set_remote_value(int v)
 // Do NOT use a .h file.  Just put the declaration of the class above
 //   the definitions (right here).  In other words, keep it simple.
 
+class observable : public virtual value
+{
+ private:
+  int observable_v; // variable for storing observable data
+ public:
+  observable(int new_value); // constructor
+  ~observable(); // destructor
+  void set(int new_value); // set function declaration
+  void notify_observers(); // notify_observers function declaration
+  void register_observer(observer * ); // register_observer funtion declaration
+};
 
+observable::observable(int new_value):value(v)
+{
+  cout << "      ==> observable::observable" << endl;
+
+  this->observable_v = new_value;
+
+  cout << "      <-- observable::observable" << endl;
+}
+
+observable::~observable()
+{
+  cout << "      ==> observable::~observable" << endl;
+
+  delete this;
+
+  cout << "      <-- observable::~observable" << endl;
+}
 
 void observable::set (int new_value)
 {
@@ -157,10 +251,10 @@ void observable::set (int new_value)
   // Only change the value and send out notifications 
   //   if the new value is different than the current value in 'this'.
 
-  if (  ) // TODO:  Fix this condition to match the comment above.
+  if (new_value != this->observable_v) // TODO:  Fix this condition to match the comment above.
     {
       // TODO:  Change superclass field, keep the new value 
-
+      value::set(new_value);
       notify_observers ();
     }
 
@@ -197,6 +291,34 @@ void observable::register_observer (observer *)
 //   This is not shown in the class diagram, you are to figure out what
 //   you need (and why).  There will only be a couple of actually useful
 //   statements (and the debugging output statements, indented two spaces).
+
+class task_priority : public remote, public observable
+{
+private:
+  int task_priority_v; // variable to store task_priority data
+public:
+  task_priority(int v); // constructor
+  ~task_priority(); // destructor
+};
+
+task_priority::task_priority(int v):remote(v), observable(v)
+{
+  cout << "      ==> task_priority::task_priority" << endl;
+
+  this->task_priority_v = v;
+
+  cout << "      <-- task_priority::task_priority" << endl;
+}
+
+task_priority::~task_priority()
+{
+  cout << "      ==> task_priority::~task_priority" << endl;
+
+  delete this;
+
+  cout << "      <-- task_priority::~task_priority" << endl;
+}
+
 
 
 // TODO:  Nothing else is needed beyond this point.  Do not change main at all.
