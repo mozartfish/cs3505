@@ -2,16 +2,16 @@ Creating a task_priority object:
 --------------------------------
       ==> value::value
       <-- value::value
-      ==> remote::remote
-      <-- remote::remote
-      ==> observable::observable
-      <-- observable::observable
-      ==> task_priority::task_priority
-      <-- task_priority::task_priority
+    ==> remote::remote
+    <-- remote::remote
+    ==> observable::observable
+    <-- observable::observable
+  ==> task_priority::task_priority
+  <-- task_priority::task_priority
 
 Setting the priority to 60 (through a task_priority *):
 -------------------------------------------------------
-      ==> task_priority::set
+  ==> task_priority::set
     ==> observable::set
     ==> remote::get
     ==> remote::remote_has_changed
@@ -30,7 +30,7 @@ Setting the priority to 60 (through a task_priority *):
       ==> value::set
       <-- value::set
     <-- remote::set
-      <-- task_priority::set
+  <-- task_priority::set
 
     ==> remote::get
     ==> remote::remote_has_changed
@@ -43,7 +43,7 @@ Priority is now 60.
 
 Setting the priority to 30 (through a remote *):
 ------------------------------------------------
-      ==> task_priority::set
+  ==> task_priority::set
     ==> observable::set
     ==> remote::get
     ==> remote::remote_has_changed
@@ -62,7 +62,7 @@ Setting the priority to 30 (through a remote *):
       ==> value::set
       <-- value::set
     <-- remote::set
-      <-- task_priority::set
+  <-- task_priority::set
 
     ==> remote::get
     ==> remote::remote_has_changed
@@ -75,7 +75,7 @@ Priority is now 30.
 
 Setting the priority to 75 (through an observable *):
 -----------------------------------------------------
-      ==> task_priority::set
+  ==> task_priority::set
     ==> observable::set
     ==> remote::get
     ==> remote::remote_has_changed
@@ -94,7 +94,7 @@ Setting the priority to 75 (through an observable *):
       ==> value::set
       <-- value::set
     <-- remote::set
-      <-- task_priority::set
+  <-- task_priority::set
 
     ==> remote::get
     ==> remote::remote_has_changed
@@ -107,7 +107,7 @@ Priority is now 75.
 
 Setting the priority to 22 (through a value *):
 -----------------------------------------------
-      ==> task_priority::set
+  ==> task_priority::set
     ==> observable::set
     ==> remote::get
     ==> remote::remote_has_changed
@@ -126,7 +126,7 @@ Setting the priority to 22 (through a value *):
       ==> value::set
       <-- value::set
     <-- remote::set
-      <-- task_priority::set
+  <-- task_priority::set
 
     ==> remote::get
     ==> remote::remote_has_changed
@@ -139,12 +139,12 @@ Priority is now 22.
 
 Cleaning up:
 ------------
-      ==> task_priority::~task_priority
-      <-- task_priority::~task_priority
-      ==> observable::~observable
-      <-- observable::~observable
-      ==> remote::~remote
-      <-- remote::~remote
+  ==> task_priority::~task_priority
+  <-- task_priority::~task_priority
+    ==> observable::~observable
+    <-- observable::~observable
+    ==> remote::~remote
+    <-- remote::~remote
       ==> value::~value
       <-- value::~set
 

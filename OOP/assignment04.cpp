@@ -113,14 +113,14 @@ class remote : public virtual value
 
 remote::remote(int v):value(v)
 {
-  cout << "      ==> remote::remote" << endl;
-  cout << "      <-- remote::remote" << endl;
+  cout << "    ==> remote::remote" << endl;
+  cout << "    <-- remote::remote" << endl;
 }
 
 remote::~remote()
 {
-  cout << "      ==> remote::~remote" << endl;
-  cout << "      <-- remote::~remote" << endl;
+  cout << "    ==> remote::~remote" << endl;
+  cout << "    <-- remote::~remote" << endl;
 }
 
 void remote::set (int v)
@@ -207,14 +207,14 @@ class observable : public virtual value
 
 observable::observable(int v):value(v)
 {
-  cout << "      ==> observable::observable" << endl;
-  cout << "      <-- observable::observable" << endl;
+  cout << "    ==> observable::observable" << endl;
+  cout << "    <-- observable::observable" << endl;
 }
 
 observable::~observable()
 {
-  cout << "      ==> observable::~observable" << endl;
-  cout << "      <-- observable::~observable" << endl;
+  cout << "    ==> observable::~observable" << endl;
+  cout << "    <-- observable::~observable" << endl;
 }
 
 
@@ -277,24 +277,24 @@ class task_priority : public remote, public observable
 
 task_priority::task_priority(int v): value(v), remote(v), observable(v)
 {
-  cout << "      ==> task_priority::task_priority" << endl;
-  cout << "      <-- task_priority::task_priority" << endl;
+  cout << "  ==> task_priority::task_priority" << endl;
+  cout << "  <-- task_priority::task_priority" << endl;
 }
 
 task_priority::~task_priority()
 {
-  cout << "      ==> task_priority::~task_priority" << endl;
-  cout << "      <-- task_priority::~task_priority" << endl;
+  cout << "  ==> task_priority::~task_priority" << endl;
+  cout << "  <-- task_priority::~task_priority" << endl;
 }
 
 void task_priority::set(int v)
 {
-  cout << "      ==> task_priority::set" << endl;
+  cout << "  ==> task_priority::set" << endl;
 
   observable::set(v);
   remote::set(v);
 
-  cout << "      <-- task_priority::set" << endl;
+  cout << "  <-- task_priority::set" << endl;
 }
 // TODO:  Nothing else is needed beyond this point.  Do not change main at all.
 
