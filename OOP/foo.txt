@@ -146,5 +146,5 @@ Cleaning up:
     ==> remote::~remote
     <-- remote::~remote
       ==> value::~value
-      <-- value::~set
+      <-- value::~value
 

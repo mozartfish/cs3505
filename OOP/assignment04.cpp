@@ -66,7 +66,7 @@ value::value(int v)
 value::~value()
 {
   cout << "      ==> value::~value" << endl;
-  cout << "      <-- value::~set" << endl;
+  cout << "      <-- value::~value" << endl;
 }
 
 void value::set (int v)
