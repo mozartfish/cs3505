@@ -1,0 +1,7 @@
+all:
+	gcc -o ./bouncer b_main.c -I../ffmpeg -L../ffmpeg -Wall -lavformat -lavcodec -lswresample -lswscale -lavutil -lm
+
+clean:
+	rm -f bouncer
+	
+movie:
